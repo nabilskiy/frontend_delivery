@@ -1,0 +1,98 @@
+<footer [myLoading]="myLoading" ></footer>
+
+<div class="wrapper wrapper-content content_top_bar animated fadeInRight PushMarketing">
+   <div class="row">
+       <div class="col-lg-8">
+            <div class="row add_phrase_form">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <label class="control-label">{{heading_title.push_marketing_messages | translate}}</label>
+                    </div>
+                    <div class="ibox-content">
+                        <form #create_push_marketing_message_form="ngForm" (ngSubmit)="createNewMessage(create_push_marketing_message_form.value)" class="message_creating_form">
+                            <div class="col-lg-4 form-group">
+                                <label class="col-sm-3 control-label">{{title.push_marketing_create_message_label | translate}}</label>
+                                <textarea
+                                        id="push_marketing_message_text"
+                                        name="push_marketing_message_text"
+                                        [(ngModel)]="push_marketing_message_text"
+                                        cols="30" rows="10"
+                                ></textarea>
+                            </div>
+                            <div class="col-lg-4 form-group">
+                                <input type="submit"
+                                       id="create_message_submit"
+                                       name="create_message_submit"
+                                       class="btn btn-primary"
+                                       style="position:absolute;right: 10px;"
+                                       value="{{button.save | translate}}"
+                                />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+           <div class="row phrases_table_wrapper">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>{{title.id | translate}}</th>
+                                <th>{{title.message | translate}}</th>
+                                <th style="width: 120px;">{{title.action | translate}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let message of push_marketing_messages">
+                                <td>{{message.unique_id}}</td>
+                                <td>{{message.message}}</td>
+                                <td style="width: 120px;">
+                                    <button type="button" class="btn btn-danger" (click)="openDeleteMessageModal(message)">{{button.delete | translate}}</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+           </div>
+       </div>
+       <div class="col-lg-4">
+           <div class="ibox">
+               <div class="ibox-title">
+                   <label class="control-label">{{heading_title.push_marketing_setting | translate}}</label>
+               </div>
+               <div class="ibox-content">
+                   <div class="row" style="display: flex; justify-content: center;">
+                        <form #app_switch_setting_Form="ngForm" (ngSubmit)="AppSwitchSetting(app_switch_setting_Form.value)" >
+                            <div class="col-lg-4 form-group">
+                               <label style="padding: 0;" class="col-lg-9 col-xs-9 control-label">{{title.push_marketing_enable | translate}}</label>
+
+                               <div class="col-lg-3 col-xs-3 form-group">
+                                   <ui-switch [(ngModel)]="app_switch_setting.push_marketing_enable" #push_marketing_enable="ngModel" name="push_marketing_enable"></ui-switch>
+                               </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{{title.push_marketing_schedule_timeout_in_minutes | translate}}:</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" [(ngModel)]="app_switch_setting.push_marketing_schedule_timeout"  #push_marketing_schedule_timeout  name="push_marketing_schedule_timeout">
+                                </div>
+                            </div>
+                            <input type="submit" id="submit" name="submit" style="width: 50%;" class="btn btn-primary" value="{{button.save | translate}}" >
+                        </form>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+
+<modal #message_delete_modal>
+    <modal-header [show-close]="true">{{title.delete_push_message | translate}}</modal-header>
+    <modal-body>
+        <div style="width: 100%; display: flex; justify-content: space-around;">
+            <button class="btn btn-success" (click)="delete_message()">{{button.yes | translate}}</button>
+            <button class="btn btn-danger" (click)="closeDeleteMessageModal()">{{button.no | translate}}</button>
+        </div>
+    </modal-body>
+</modal>

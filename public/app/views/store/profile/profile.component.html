@@ -1,0 +1,433 @@
+<footer [myLoading]="myLoading" ></footer>
+
+<form #storeUpdateForm="ngForm" (ngSubmit)="UpdateStore(storeUpdateForm.value)">
+    <div class="wrapper wrapper-content animated fadeInRight content_top_bar">
+
+        
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="col-lg-12 col-sm-12 no_padding">
+                    <div class="ibox product-detail">
+                        <div class="ibox-content profile">
+
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3">
+
+                                    <div class="profile-images center">
+                                        <img class="img-circle" style="width: 120px;height: 120px;" src="{{store_edit.image_url != '' ? helper.CONSTANT.IMAGE_BASE_URL + store_edit.image_url : 'default.png'}}" alt="profile">
+                                    </div>
+
+                                    <div class="center" style="margin-left: 110px; margin-top: -115px;">
+                                        <span class="btn-file" *ngIf="edit==true"><i class="fa fa-pencil"></i><input type="file" accept="image/*" (change)="change_image($event);" name="image"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 col-sm-9 profile_data">
+                                    <input type="hidden" class="form-control" [(ngModel)]="store_edit.store_id" #store_id="ngModel"  name="store_id" />
+                                    <input type="hidden" class="form-control" [(ngModel)]="store_edit.server_token" #server_token="ngModel"  name="server_token" />
+                                    <input type="hidden" class="form-control" [(ngModel)]="store_edit.social_id" #social_id="ngModel"  name="social_id" />
+                                    <input type="hidden" class="form-control" [(ngModel)]="store_edit.login_by" #login_by="ngModel"  name="login_by" />
+
+                                    <div class="col-md-12 remove_padding align_center1" style="margin-left: 0px;">
+                                        <div class="col-md-4">
+                                            <label class="control-label" style="font-size: 30px;">{{store_edit.name}}</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="button" class="btn btn-danger" (click)="open_company_model()">Add Company</button>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="button" *ngIf="edit==false" class="btn btn-danger pull-right edit_option_mobile_screen profile_update" (click)="edit=true">{{button.edit | translate}}</button>
+
+                                            <button type="submit"  *ngIf="edit==true" [disabled]="!storeUpdateForm.form.valid" class="btn btn-primary pull-right edit_option_mobile_screen profile_update">{{button.update | translate}}</button>
+                                        </div>
+                                       
+                                    </div>
+                                    <hr style="border-color: red;">
+                                    <div class="row col-md-12 remove_padding"><label class="col-lg-4  col-xs-4 col-sm-4 remove_padding control-label">{{title.country | translate}}<div class="pull-right">:</div></label>
+                                        <div class="col-lg-8 col-xs-8 col-sm-8 form-group">
+                                            {{store_edit.country_name }}
+                                        </div>
+                                    </div>
+                                    <div class="row col-md-12 remove_padding"><label class="col-lg-4 col-xs-4 col-sm-4 remove_padding control-label">{{title.city | translate}}<div class="pull-right">:</div></label>
+                                        <div class="col-lg-8 col-xs-8 col-sm-8 form-group">
+                                            {{store_edit.city_name }}
+                                        </div>
+                                    </div>
+                                    <div class="row col-md-12 remove_padding"><label class="col-lg-4 col-xs-4 col-sm-4 remove_padding control-label">{{title.delivery_type | translate}}<div class="pull-right translateyminus">:</div></label>
+                                        <div class="col-lg-8 col-xs-8 col-sm-8 form-group translatey">
+                                            {{store_edit.store_delivery_name }}
+                                        </div>
+                                    </div>
+                                    <div class="row col-md-12 remove_padding"><label class="col-lg-4 col-xs-4 col-sm-4 remove_padding control-label">{{title.referral_code | translate}}<div class="pull-right translateyminus">:</div></label>
+                                        <div class="col-lg-8 col-xs-8 col-sm-8 form-group translatey">
+                                            {{store_edit.referral_code }}
+                                        </div>
+                                    </div>
+                                    <div class="row col-md-12 remove_padding"><label class="col-lg-4 col-xs-4 col-sm-4 remove_padding control-label">{{title.wallet | translate}}<div class="pull-right translateyminus">:</div></label>
+                                        <div class="col-lg-8 col-xs-8 col-sm-8 form-group translatey">
+                                            {{store_edit.referral_credit }}
+                                        </div>
+                                    </div>
+                                    <div class="row col-md-12 remove_padding"><label class="col-lg-4 col-xs-4 col-sm-4 remove_padding control-label">{{title.total_referred | translate}}<div class="pull-right translateyminus">:</div></label>
+                                        <div class="col-lg-8 col-xs-8 col-sm-8 form-group translatey">
+                                            {{store_edit.total_referred }}
+                                        </div>
+                                    </div>
+                                    <div class="row col-md-12 remove_padding">
+                                        <hr style="border-color: gray;">
+                                    </div>
+
+                                    <div class="row col-md-12 remove_padding">
+                                        <label class="col-lg-4 col-sm-4 remove_padding control-label">{{title.name | translate}}<div *ngIf="edit==false" class="pull-right">:</div></label>
+                                        <div *ngIf="edit==true" class="col-lg-8 col-sm-8 form-group">
+                                            <input type="text" [disabled]="edit==false" class="form-control" [(ngModel)]="store_edit.name" #name="ngModel" name="name" required/>
+                                            <div *ngIf="name.errors && (name.dirty || name.touched)">
+                                                <div style="color: red;" [hidden]="!name.errors.required">{{validation_message.name_required | translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="edit==false" class="col-lg-8 col-xs-8 col-sm-8 form-group translatey">
+                                            {{store_edit.name}}
+                                        </div>
+                                    </div>
+
+                                    <div class="row col-md-12 remove_padding">
+                                        <label class="col-lg-4 col-xs-4 col-sm-4 remove_padding control-label">{{title.email | translate}}<div *ngIf="edit==false" class="pull-right">:</div></label>
+                                        <div *ngIf="edit==true" class="col-lg-8 col-xs-8 col-sm-8 form-group">
+
+                                            <input type="text" [readonly]="store_edit.social_id.length>0" class="form-control" [(ngModel)]="store_edit.email" #email="ngModel" name="email" email required/>
+                                            <div *ngIf="email.errors && (email.dirty || email.touched)">
+                                                <div style="color: red;" [hidden]="!email.errors.required">{{validation_message.email_required | translate}}
+                                                </div>
+                                                <div style="color: red;" [hidden]="!email.errors?.email">{{validation_message.valid_email | translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="edit==false" class="col-lg-8 col-xs-8 col-sm-8 form-group">
+                                            {{store_edit.email }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row col-md-12 remove_padding">
+                                        <label class="col-lg-4  col-xs-4 col-sm-4 remove_padding control-label">{{title.phone | translate}}<div *ngIf="edit==false" class="pull-right">:</div></label>
+                                        <div *ngIf="edit==true" class="col-lg-8 col-xs-8 col-sm-8 form-group">
+                                            <input type="text" class="form-control" [(ngModel)]="store_edit.phone" minlength="{{minimum_phone_number_length}}" (keypress)="helper.number_validation($event)" maxlength="{{maximum_phone_number_length}}" #phone="ngModel" name="phone" required/>
+                                            <div *ngIf="phone.errors && (phone.dirty || phone.touched)">
+                                                <div style="color: red;" [hidden]="!phone.errors.required">{{validation_message.phone_required | translate}}
+                                                </div>
+                                                <div style="color: red;" [hidden]="!phone.errors.minlength">{{validation_message.phone_minlength | translate}}
+                                                </div>
+                                                <div style="color: red;" [hidden]="!phone.errors.maxlength">{{validation_message.phone_maxlength | translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="edit==false" class="col-lg-8 col-xs-8 col-sm-8 form-group translatey">
+                                            {{store_edit.phone}}
+                                        </div>
+                                    </div>
+
+                                    <div class="row col-md-12 remove_padding">
+                                        <label class="col-lg-4 col-sm-4 remove_padding control-label">{{title.address | translate}}<div *ngIf="edit==false" class="pull-right">:</div></label>
+                                        <div [hidden]="edit==false" class="col-lg-8 col-sm-8 form-group">
+                                            <input type="text" id="address" [disabled]="edit==false" class="form-control" [(ngModel)]="store_edit.address" #address="ngModel" name="address" required/>
+                                            <div *ngIf="address.errors && (address.dirty || address.touched)">
+                                                <div style="color: red;" [hidden]="!address.errors.required">{{validation_message.address_required | translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="edit==false" class="col-lg-8 col-xs-8 col-sm-8 form-group translatey">
+                                            {{store_edit.address}}
+                                        </div>
+                                    </div>
+
+                                    <div class="row col-md-12 remove_padding">
+                                        <label class="col-lg-4 col-sm-4 remove_padding control-label">{{title.website_url | translate}}<div *ngIf="edit==false" class="pull-right">:</div></label>
+                                        <div *ngIf="edit==true" class="col-lg-8 col-sm-8 form-group">
+                                            <input type="text" class="form-control" [(ngModel)]="store_edit.website_url" [disabled]="edit==false" #website_url="ngModel" name="website_url"/>
+                                        </div>
+                                        <div *ngIf="edit==false" class="col-lg-8 col-xs-8 col-sm-8 form-group translatey">
+                                            {{store_edit.website_url}}
+                                        </div>
+                                    </div>
+
+                                    <div class="row col-md-12 remove_padding">
+                                        <label class="col-lg-4 col-sm-4 remove_padding control-label">{{title.slogan | translate}}<div *ngIf="edit==false" class="pull-right">:</div></label>
+                                        <div *ngIf="edit==true" class="col-lg-8 col-sm-8 form-group">
+                                            <input type="text" class="form-control" [(ngModel)]="store_edit.slogan" [disabled]="edit==false" #slogan="ngModel" name="slogan"/>
+                                        </div>
+                                        <div *ngIf="edit==false" class="col-lg-8 col-xs-8 col-sm-8 form-group translatey">
+                                            {{store_edit.slogan}}
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="edit==true" class="row col-md-12 remove_padding" [hidden]="store_edit.social_id.length !== 0">
+                                        <label class="col-lg-4 col-sm-4 remove_padding control-label">{{title.new_password | translate}}</label>
+                                        <div class="col-lg-8 col-sm-8 form-group">
+                                            <input type="password" class="form-control" [(ngModel)]="store_edit.confirm_password" [disabled]="edit==false" #confirm_password="ngModel" name="confirm_password"/>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="edit==true" class="row col-md-12 remove_padding" [hidden]="store_edit.social_id.length !== 0">
+                                        <label class="col-lg-4 col-sm-4 remove_padding control-label">{{title.confirm_password | translate}}</label>
+                                        <div class="col-lg-8 col-sm-8 form-group">
+                                            <input type="password" [equalTo]="confirm_password" class="form-control" [(ngModel)]="store_edit.new_password" [disabled]="edit==false" #new_password="ngModel" name="new_password"/>
+                                            <div *ngIf="new_password.errors">
+                                                <div style="color: red;" [hidden]="!new_password.errors?.equalTo">{{validation_message.match_confirm_password | translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ibox">
+                        <div class="ibox-title" style="padding: 0;min-height: 35px !important;">
+                            <label style="margin-left: 15px;margin-top: 9px;" class="control-label">{{heading_title.upload_documents | translate}}</label>
+                        </div>
+                        <div class="ibox-content document" style="overflow: auto;">
+                            <div class="table-responsive" style="height: 100%;overflow: auto;">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{title.image | translate}}</th>
+                                            <th>{{title.name | translate}}</th>
+                                            <th width="25%">{{title.unique_code | translate}}</th>
+                                            <th width="25%">{{title.expiry_date | translate}}</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let document of document_list; let document_index=index;">
+                                            <td>
+                                                <div *ngIf="edit_document[document_index]!=='true'">
+                                                    <img src="default.png" class="document{{document_index}} img-circle" style="width: 50px;height: 50px;">
+                                                </div>
+                                                <div *ngIf="edit_document[document_index]=='true'">
+                                                    <span class="btn-file"><img src="default.png" class="document{{document_index}} img-circle" style="width: 50px;height: 50px;">
+                                                        <input type="file" (change)="image_update($event , document_index);" name="image">
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td><label *ngIf="document.document_details.is_mandatory" style="color: red;">*</label>{{document.document_details.document_name}}</td>
+                                            <td>
+                                                <div *ngIf="document.document_details.is_unique_code && edit_document[document_index]!=='true'">
+                                                    {{document.unique_code}}
+                                                </div>
+                                                <div *ngIf="document.document_details.is_unique_code && edit_document[document_index]=='true'">
+                                                    <input type="text" [(ngModel)]="documentlist.unique_code" #unique_code="ngModel"  name="unique_code" style="border-radius: 5px;border-color: #060606;height: 30px;" class="form-control">
+                                                </div>
+                                                <div *ngIf="!document.document_details.is_unique_code">
+                                                    No Unique Code
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div *ngIf="document.document_details.is_expired_date && edit_document[document_index]!=='true'">
+                                                    {{document.expired_date | date: "MM-dd-yyyy"}}
+                                                </div>
+                                                <div *ngIf="document.document_details.is_expired_date && edit_document[document_index]=='true'">
+                                                    <my-date-picker [(ngModel)]="documentlist.expired_date" #expired_date="ngModel"  name="expired_date" id="expiry_date" value="" [options]="helper.ExpiryDatePickerOptions" placeholder="{{title.exp_date | translate}}" readonly></my-date-picker>
+                                                </div>
+                                                <div *ngIf="!document.document_details.is_expired_date">
+                                                    No Expiry Date
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="edit_document[document_index]=='false'" class="fa fa-pencil pull-right" (click)="editDocument(document , document_index)"></span>
+                                                <span *ngIf="edit_document[document_index]=='true'" class="fa fa-check pull-right" (click)="updateDocument(document , document_index)"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<modal keyboard="false" backdrop="static" cssClass="modal-sm" #myModal id="otp_model">
+    <form #modalForm="ngForm" (ngSubmit)="otp_var(modalForm.value)">
+        <modal-header [show-close]="false">
+            <h4 class="modal-title">{{title.verification | translate}}!</h4>
+        </modal-header>
+        <modal-body>
+            <div [ngSwitch]="opt_error_message">
+                <div *ngSwitchCase=1>
+                    <label style="color: red;">{{validation_message.email_otp_wrong | translate}}</label>
+                </div>
+                <div *ngSwitchCase=2>
+                    <label style="color: red;">{{validation_message.sms_otp_erong | translate}}</label>
+                </div>
+                <div *ngSwitchCase=3>
+                    <label style="color: red;">{{validation_message.otp_wrong | translate}}</label>
+                </div>
+            </div>
+                <div class="form-group" id="otp_for_sms">
+                    <label>{{title.sms_otp | translate}}</label>
+                    <input type="text" class="form-control" [(ngModel)]="sms_otp" name="sms_otp" >
+                </div>
+                <div class="form-group" id="otp_for_email">
+                    <label>{{title.email_otp | translate}}</label>
+                    <input type="text" class="form-control" [(ngModel)]="email_otp" name="email_otp" >
+                </div>
+        </modal-body>
+        <modal-footer>
+            <div style="text-align: center">
+                <button type="submit" class="btn btn-primary">{{button.submit | translate}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+
+<modal keyboard="false" backdrop="static" cssClass="modal-sm" #oldPasswordModal id="old_passwrod">
+    <form #oldPasswordForm="ngForm" (ngSubmit)="old_password_update(oldPasswordForm.value)">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">{{title.old_password | translate}}</h4>
+        </modal-header>
+        <modal-body>
+
+            <div class="form-group">
+                <label>{{title.old_password | translate}}</label>
+                <input type="password" class="form-control" [(ngModel)]="store_edit.old_password" #old_password="ngModel" minlength="6" name="old_password" required/>
+
+                <div *ngIf="old_password.errors && (old_password.dirty || old_password.touched)">
+                <div style="color: red;" [hidden]="!old_password.errors.required">{{validation_message.password_required | translate}}
+                </div>
+                <div style="color: red;" [hidden]="!old_password.errors.minlength">{{validation_message.password_minlength | translate}}
+                </div>
+                </div>
+            </div>
+
+        </modal-body>
+        <modal-footer>
+            <div style="text-align: center">
+                <button type="submit" class="btn btn-primary">{{button.submit | translate}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+
+<modal keyboard="false" backdrop="static" cssClass="modal-lg" #addCompanyModal id="add_company">
+   
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Add Card Detail</h4>
+    </modal-header>
+    <modal-body>
+
+        <form #addcompanyForm="ngForm" (ngSubmit)="add_company(addcompanyForm.value)">
+
+            <div class="form_group">
+              <input type="text" class="form-control" style="margin-bottom: 15px;" placeholder="Card Number" (keyup)="movetoNext($event , 'expiry_month')" minlength="16" maxlength="19" [(ngModel)]="add_card_data.card_number" #card_number="ngModel" (keypress)="card_number_validation($event)" name="card_number" id="card_number" required>
+              <div *ngIf="card_number.errors && (card_number.dirty || card_number.touched)" class="validation_error">
+                <div [hidden]="!card_number.errors.required">{{title.this_field_is_required | translate}}
+                </div>
+              </div>
+            </div>
+            <div class="form_group">
+              <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="Month" (keyup)="movetoNext($event , 'expiry_year')" maxlength="2" [(ngModel)]="add_card_data.expiry_month" #expiry_month="ngModel" (keypress)="card_number_validation($event)" name="expiry_month" id="expiry_month" required>
+                <div *ngIf="expiry_month.errors && (expiry_month.dirty || expiry_month.touched)" class="validation_error">
+                  <div [hidden]="!expiry_month.errors.required">{{title.this_field_is_required | translate}}
+                  </div>
+                </div>
+              </div>
+      
+              <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="Year" (keyup)="movetoNext($event , 'cvv')" maxlength="2" [(ngModel)]="add_card_data.expiry_year" #expiry_year="ngModel" (keypress)="card_number_validation($event)" name="expiry_year" id="expiry_year" required>
+                <div *ngIf="expiry_year.errors && (expiry_year.dirty || expiry_year.touched)" class="validation_error">
+                  <div [hidden]="!expiry_year.errors.required">{{title.this_field_is_required | translate}}
+                  </div>
+                </div>
+              </div>
+      
+              <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="CVV" maxlength="3" name="cvv" id="cvv" [(ngModel)]="add_card_data.cvv" #cvv="ngModel" (keypress)="card_number_validation($event)" required>
+                <div *ngIf="cvv.errors && (cvv.dirty || cvv.touched)" class="validation_error">
+                  <div [hidden]="!cvv.errors.required">{{title.this_field_is_required | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+            <div class="validation_error text-center" style="font-size: 15px;margin-top: 15px;">{{card_error}}</div>
+      
+            <div style="width: 100%;text-align: center; margin-top: 15px;">
+            <button type="submit" style="margin-top: 30px;" [disabled]="addcompanyForm.invalid" class="add_btn blue_btn btn save_b">Submit</button>
+          </div>
+
+        </form>
+
+    </modal-body>
+    <!-- <modal-footer>
+        <div style="text-align: center">
+            <button type="submit" class="btn btn-primary">{{button.submit | translate}}</button>
+        </div>
+    </modal-footer> -->
+</modal>
+
+<modal keyboard="false" backdrop="static" cssClass="modal-sm" #otpVerifyModal id="otp_verify">
+    <form #otpVerifyForm="ngForm" (ngSubmit)="verify_otp(otpVerifyForm.value)">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">OTP Verification</h4>
+        </modal-header>
+        <modal-body>
+
+            <div class="form-group">
+                <label>Enter OTP</label>
+                <input type="text" class="form-control" [(ngModel)]="liqpay_otp" #liqpay_otp_v="ngModel" name="liqpay_otp" required/>
+
+                <div *ngIf="liqpay_otp.errors && (liqpay_otp.dirty || liqpay_otp.touched)">
+                <div style="color: red;" [hidden]="!liqpay_otp.errors.required">OTP required
+                </div>
+                </div>
+            </div>
+
+        </modal-body>
+        <modal-footer>
+            <div style="text-align: center">
+                <button type="submit" class="btn btn-primary">{{button.submit | translate}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+
+
+<modal keyboard="false" backdrop="static" cssClass="modal-sm" #cvvVerifyModal id="otp_verify">
+    <form #cvvVerifyForm="ngForm" (ngSubmit)="verify_cvv(cvvVerifyForm.value)">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">CVV Verification</h4>
+        </modal-header>
+        <modal-body>
+
+            <div class="form-group">
+                <label>Enter CVV</label>
+                <input type="text" class="form-control" [(ngModel)]="liqpay_cvv" #liqpay_cvv_v="ngModel" name="liqpay_cvv" required/>
+
+                <div *ngIf="liqpay_cvv.errors && (liqpay_cvv.dirty || liqpay_cvv.touched)">
+                <div style="color: red;" [hidden]="!liqpay_cvv.errors.required">OTP required
+                </div>
+                </div>
+            </div>
+
+        </modal-body>
+        <modal-footer>
+            <div style="text-align: center">
+                <button type="submit" class="btn btn-primary">{{button.submit | translate}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+
+<style>
+#add_company .modal-dialog{
+    width: 500px !important;
+}
+</style>

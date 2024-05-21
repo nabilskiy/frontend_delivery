@@ -1,0 +1,42 @@
+<footer [myLoading]="myLoading" ></footer>
+
+<!--<div class="row wrapper fix_search_bar border-bottom white-bg page-heading"></div>-->
+<div id="user_online_menu" class="wrapper wrapper-content content_top_bar_view1 animated fadeInRight">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="lable_center" *ngIf="phone_reader_data.length===0">
+                <label>No Records</label>
+            </div>
+            <div [hidden]="phone_reader_data.length===0" class="table-responsive scrollbar"  style="height: calc(100vh - 285px);overflow: auto;">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Номер телефону</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of phone_reader_data_for_page let index=index;">
+                        <td *ngIf="page===1">{{(index + 1)}}</td>
+                        <td *ngIf="page!==1">{{(index + 1) + ((page - 1)* count_item_for_page)}}</td>
+                        <td>{{item.phone}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12 col-sm-12 pagination-wrapper">
+                <div class="lable_center">
+                    <ul class="pagination">
+                        <li *ngIf="page!==1"><a class="btn" (click)="filter(page-1)">{{button.pre | translate}}</a></li>
+                        <li *ngFor="let index of pages_index_arr" [class.active]="page==index">
+                            <a *ngIf="index==1 || index==total_page || index==page || index==page-1 || index==page+1" (click)="filter(index)" class="btn">{{index}}</a>
+                            <a *ngIf="(index==1 && (page!==1 && page!==2 && page!==3)) || (index==total_page-1 && (page!==total_page && page!==total_page-1 && page!==total_page-2))" class="btn">...</a>
+                        </li>
+                        <li *ngIf="page!==total_page && phone_reader_data.length!==0"><a class="btn" (click)="filter(page+1)">{{button.next | translate}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
