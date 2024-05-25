@@ -1,185 +1,194 @@
 {
-    "$schema": "./node_modules/@angular-devkit/core/src/workspace/workspace-schema.json",
-    "version": 1,
-    "newProjectRoot": "projects",
-    "projects": {
-        "template-appv6": {
-            "root": "public",
-            "projectType": "application",
-            "architect": {
-                "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
-                    "options": {
-                        "outputPath": "dist/browser",
-                        "index": "index.html",
-                        "main": "main.ts",
-                        "tsConfig": "tsconfig.app.json",
-                        "polyfills": "polyfills.ts",
-                        "assets": [
-                            {
-                                "glob": "**/*",
-                                "input": "assets",
-                                "output": "/assets"
-                            },
-                            {
-                                "glob": "favicon.ico",
-                                "input": "",
-                                "output": "/"
-                            }
-                        ],
-                        "styles": [
-                            "assets/styles/bootstrap.css",
-                            "node_modules/font-awesome/css/font-awesome.css",
-                            "node_modules/sweetalert2/dist/sweetalert2.css",
-                            "assets/styles/styles.css",
-                            "assets/styles/newstyle.css",
-                            "assets/styles/chosen/bootstrap-chosen.css",
-                            "assets/styles/iCheck/custom.css",
-                            "assets/styles/animate.css",
-                            "node_modules/owl.carousel/dist/assets/owl.carousel.css",
-                            "node_modules/owl.carousel/dist/assets/owl.theme.default.css",
-                            "assets/styles/c3.css",
-                            "assets/styles/clockpicker/clockpicker.css",
-                            "assets/styles/steps/jquery.steps.css",
-                            "assets/styles/jasny/jasny-bootstrap.min.css",
-                            "node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
-                            "node_modules/ladda/dist/ladda.min.css"
-                        ],
-                        "scripts": [
-                            "node_modules/jquery/dist/jquery.js",
-                            "node_modules/metismenu/dist/metisMenu.js",
-                            "node_modules/sweetalert2/dist/sweetalert2.js",
-                            "../public/vendor/pace/pace.min.js",
-                            "node_modules/bootstrap/dist/js/bootstrap.js",
-                            "assets/js/d3.js",
-                            "assets/js/c3.js",
-                            "assets/js/hammer.js",
-                            "assets/js/chosen/chosen.jquery.js",
-                            "assets/js/iCheck/icheck.min.js",
-                            "assets/js/clockpicker/clockpicker.js",
-                            "assets/js/jasny/jasny-bootstrap.min.js",
-                            "assets/js/touchspin/jquery.bootstrap-touchspin.min.js"
-                        ]
-                    },
-                    "configurations": {
-                        "production": {
-                            "optimization": true,
-                            "outputHashing": "all",
-                            "sourceMap": false,
-                            "extractCss": true,
-                            "namedChunks": false,
-                            "aot": true,
-                            "extractLicenses": true,
-                            "vendorChunk": false,
-                            "buildOptimizer": true,
-                            "fileReplacements": [
-                                {
-                                    "replace": "environments/environment.ts",
-                                    "with": "environments/environment.prod.ts"
-                                }
-                            ]
-                        }
-                    }
-                },
-                "serve": {
-                    "builder": "@angular-devkit/build-angular:dev-server",
-                    "options": {
-                        "browserTarget": "template-appv6:build"
-                    },
-                    "configurations": {
-                        "production": {
-                            "browserTarget": "template-appv6:build:production"
-                        }
-                    }
-                },
-                "extract-i18n": {
-                    "builder": "@angular-devkit/build-angular:extract-i18n",
-                    "options": {
-                        "browserTarget": "template-appv6:build"
-                    }
-                },
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "main": "src/test.ts",
-                        "karmaConfig": "./karma.conf.js",
-                        "polyfills": "src/polyfills.ts",
-                        "tsConfig": "src/tsconfig.spec.json",
-                        "scripts": [],
-                        "styles": [
-                            "src/styles.css"
-                        ],
-                        "assets": [
-                            {
-                                "glob": "**/*",
-                                "input": "src/assets",
-                                "output": "/assets"
-                            },
-                            {
-                                "glob": "favicon.ico",
-                                "input": "src",
-                                "output": "/"
-                            }
-                        ]
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "src/tsconfig.app.json",
-                            "src/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
-                    }
-                },
-                "server": {
-                    "builder": "@angular-devkit/build-angular:server",
-                    "options": {
-                        "outputPath": "dist/server",
-                        "main": "src/main.server.ts",
-                        "tsConfig": "src/tsconfig.server.json"
-                    }
+  "$schema": "./node_modules/@angular-devkit/core/src/workspace/workspace-schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "template-appv6": {
+      "root": "public",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "aot": true,
+            "outputPath": "dist/browser",
+            "index": "index.html",
+            "main": "main.ts",
+            "tsConfig": "tsconfig.app.json",
+            "polyfills": "polyfills.ts",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "",
+                "output": "/"
+              }
+            ],
+            "styles": [
+              "assets/styles/bootstrap.css",
+              "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/sweetalert2/dist/sweetalert2.css",
+              "assets/styles/styles.css",
+              "assets/styles/newstyle.css",
+              "assets/styles/chosen/bootstrap-chosen.css",
+              "assets/styles/iCheck/custom.css",
+              "assets/styles/animate.css",
+              "node_modules/owl.carousel/dist/assets/owl.carousel.css",
+              "node_modules/owl.carousel/dist/assets/owl.theme.default.css",
+              "assets/styles/c3.css",
+              "assets/styles/clockpicker/clockpicker.css",
+              "assets/styles/steps/jquery.steps.css",
+              "assets/styles/jasny/jasny-bootstrap.min.css",
+              "node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
+              "node_modules/ladda/dist/ladda.min.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/metismenu/dist/metisMenu.js",
+              "node_modules/sweetalert2/dist/sweetalert2.js",
+              "../public/vendor/pace/pace.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "assets/js/d3.js",
+              "assets/js/c3.js",
+              "assets/js/hammer.js",
+              "assets/js/chosen/chosen.jquery.js",
+              "assets/js/iCheck/icheck.min.js",
+              "assets/js/clockpicker/clockpicker.js",
+              "assets/js/jasny/jasny-bootstrap.min.js",
+              "assets/js/touchspin/jquery.bootstrap-touchspin.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.prod.ts"
+                }
+              ]
             }
+          }
         },
-        "template-appv6-e2e": {
-            "root": "",
-            "projectType": "application",
-            "cli": {},
-            "schematics": {},
-            "architect": {
-                "e2e": {
-                    "builder": "@angular-devkit/build-angular:protractor",
-                    "options": {
-                        "protractorConfig": "./protractor.conf.js",
-                        "devServerTarget": "template-appv6:serve"
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "e2e/tsconfig.e2e.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
-                    }
-                }
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "template-appv6:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "template-appv6:build:production"
             }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "template-appv6:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "karmaConfig": "./karma.conf.js",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "scripts": [],
+            "styles": [
+              "src/styles.css"
+            ],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "src",
+                "output": "/"
+              }
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/server",
+            "main": "src/main.server.ts",
+            "tsConfig": "src/tsconfig.server.json"
+          }
         }
+      }
     },
-    "cli": {},
-    "schematics": {
-        "@schematics/angular:component": {
-            "prefix": "app",
-            "styleext": "css"
+    "template-appv6-e2e": {
+      "root": "",
+      "projectType": "application",
+      "cli": {},
+      "schematics": {},
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "./protractor.conf.js",
+            "devServerTarget": "template-appv6:serve"
+          }
         },
-        "@schematics/angular:directive": {
-            "prefix": "app"
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
         }
+      }
     }
+  },
+  "cli": {
+    "analytics": false
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "prefix": "app",
+      "style": "css"
+    },
+    "@schematics/angular:directive": {
+      "prefix": "app"
+    }
+  }
 }
