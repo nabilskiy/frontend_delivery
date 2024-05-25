@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Helper} from "../../helper";
 import {Http, Response} from '@angular/http';
@@ -27,7 +29,7 @@ export class VehicleComponent implements OnInit {
 
     ngOnInit() {
         this.helper.message()
-        this.helper.http.get('admin/vehicle_list').map((res: Response) => res.json()).subscribe(data => {
+        this.helper.http.get('admin/vehicle_list').pipe(map((res: Response) => res.json())).subscribe(data => {
 
             this.myLoading = false;
             if (data.success == false) {
@@ -44,7 +46,7 @@ export class VehicleComponent implements OnInit {
         this.heading_title = this.helper.heading_title;
     }
     is_business_change(id, event) {
-        this.helper.http.post('admin/vehicle_toggle_change', {vehicle_id: id, is_business: event}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('admin/vehicle_toggle_change', {vehicle_id: id, is_business: event}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             if (res_data.success == false) {
 

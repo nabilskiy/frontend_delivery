@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Response} from '@angular/http';
 import {Helper} from "../../helper";
@@ -117,7 +119,7 @@ export class EarningComponent implements OnInit {
             start_date: this.start_date, end_date: this.end_date,
             sort_field: this.sort_field, sort_order: this.sort_order,
             search_field: this.search_field, search_value: this.search_value, page: this.page
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success == false) {
 
@@ -170,7 +172,7 @@ export class EarningComponent implements OnInit {
             start_date: this.start_date, end_date: this.end_date,
             sort_field: this.sort_field, sort_order: this.sort_order,
             search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             var json2csv = require('json2csv');
 
             this.order_count = res_data.order_count;
@@ -397,7 +399,7 @@ export class EarningComponent implements OnInit {
             start_date: this.start_date, end_date: this.end_date,
             sort_field: this.sort_field, sort_order: this.sort_order,
             search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
            
             var json_data = [];

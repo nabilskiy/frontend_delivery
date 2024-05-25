@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Response} from '@angular/http';
 import {Helper} from "../../helper";
@@ -84,7 +86,7 @@ export class RequestCancelReasonComponent implements OnInit {
         this.helper.http.post('/admin/request_cancellation_reason', {
             sort_field: this.sort_field, sort_request: this.sort_request,
             search_field: this.search_field, search_value: this.search_value, page: this.page
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success == false) {
                 this.request_list = [];

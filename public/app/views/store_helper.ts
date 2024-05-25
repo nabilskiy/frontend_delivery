@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, NgZone ,ElementRef} from '@angular/core';
 import { Http} from '@angular/http';
 import { Data } from './data';
@@ -195,7 +197,7 @@ export class Helper {
             pickup_addresses: this.user_cart.cart_data.pickup_addresses
         }
 
-        this.http.post(this.POST_METHOD.ADD_ITEM_IN_CART, json).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+        this.http.post(this.POST_METHOD.ADD_ITEM_IN_CART, json).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                 if(res_data.success){
                     this.user_cart.cart_data.cart_id = res_data.cart_id;

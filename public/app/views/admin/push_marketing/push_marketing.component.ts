@@ -1,10 +1,12 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import { NgForm} from '@angular/forms';
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
 import {Helper} from "../../helper";
 declare var jQuery: any;
 
@@ -53,15 +55,15 @@ export class PushMarketingComponent implements OnInit {
             push_marketing_schedule_timeout: 0
         }
 
-        this.helper.http.post('/api/admin/get_setting_detail', {})
-            .map((res: Response) => res.json())
+        this.helper.http.post('/api/admin/get_setting_detail', {}).pipe(
+            map((res: Response) => res.json()))
             .subscribe(res_data => {
                 this.app_switch_setting.push_marketing_enable = res_data.setting.push_marketing_enable;
                 this.app_switch_setting.push_marketing_schedule_timeout = Number(res_data.setting.push_marketing_schedule_timeout);
             }, error => {});
 
-        this.helper.http.get('/api/admin/push_marketing_get_messages')
-            .map((res: Response) => res.json())
+        this.helper.http.get('/api/admin/push_marketing_get_messages').pipe(
+            map((res: Response) => res.json()))
             .subscribe(res_data => {
                 this.push_marketing_messages = res_data.messages;
             }, error => {});
@@ -75,7 +77,7 @@ export class PushMarketingComponent implements OnInit {
         this.helper.http.post('/admin/update_switch_setting', {
             optional: true,
             optionalData: app_switch_setting_data
-        }).map((res: Response) => res.json())
+        }).pipe(map((res: Response) => res.json()))
             .subscribe(res_data => {
                     console.log('update_switch_setting', res_data)
                 this.myLoading = false;
@@ -99,8 +101,8 @@ export class PushMarketingComponent implements OnInit {
     createNewMessage(formData) {
         this.helper.http.post('/api/admin/push_marketing_create_message', {
             text: formData.push_marketing_message_text
-        })
-        .map((res: Response) => res.json())
+        }).pipe(
+        map((res: Response) => res.json()))
         .subscribe(res_data => {
             if (res_data.success) {
                 this.push_marketing_messages.push(res_data.message);
@@ -134,8 +136,8 @@ export class PushMarketingComponent implements OnInit {
 
         this.helper.http.post('/api/admin/push_marketing_delete_message', {
             message_id: this.message_should_delete._id
-        })
-            .map((res: Response) => res.json())
+        }).pipe(
+            map((res: Response) => res.json()))
             .subscribe(res_data => {
                 this.closeDeleteMessageModal();
             }, (error: any) => {

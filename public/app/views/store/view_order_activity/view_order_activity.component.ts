@@ -1,8 +1,10 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
 import {Helper} from "../../store_helper";
 
 @Component({
@@ -53,7 +55,7 @@ export class StoreViewOrderActivityComponent implements OnInit {
         var store = JSON.parse(localStorage.getItem('store'));
         if(store!==null)
         {
-            this.helper.http.post('/api/store/get_order_data',{order_id:this.order_id,store_id:store._id, server_token:store.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+            this.helper.http.post('/api/store/get_order_data',{order_id:this.order_id,store_id:store._id, server_token:store.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                 if(res_data.success == false)
                 {

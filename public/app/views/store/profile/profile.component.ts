@@ -1,8 +1,10 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit ,ViewContainerRef , ViewChild, Output, EventEmitter} from '@angular/core';
 import {Response } from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {Helper} from "../../store_helper";
 import {Document} from "../upload_document/upload_document.component";
@@ -196,7 +198,7 @@ export class ProfileComponent implements OnInit {
             this.helper.router.navigate(['store/upload_document']);
         }
 
-        this.helper.http.post(this.helper.POST_METHOD.GET_SETTING_DETAIL,{}).map((response: Response) => response.json()) .subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_SETTING_DETAIL,{}).pipe(map((response: Response) => response.json())) .subscribe(res_data => {
 
             this.setting_data=res_data.setting
 
@@ -205,7 +207,7 @@ export class ProfileComponent implements OnInit {
                 this.helper.http_status(error)
         });
 
-        this.helper.http.post(this.helper.POST_METHOD.GET_DOCUMENT_LIST,{type:2 ,id:this.store_edit.store_id, server_token:this.store_edit.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_DOCUMENT_LIST,{type:2 ,id:this.store_edit.store_id, server_token:this.store_edit.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                 this.myLoading=false;
                 if(res_data.success == false)
@@ -230,7 +232,7 @@ export class ProfileComponent implements OnInit {
             });
 
 
-        this.helper.http.post(this.helper.POST_METHOD.GET_STORE_DATA,{store_id:this.store_edit.store_id, server_token:this.store_edit.server_token}).map((response: Response) => response.json()) .subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_STORE_DATA,{store_id:this.store_edit.store_id, server_token:this.store_edit.server_token}).pipe(map((response: Response) => response.json())) .subscribe(res_data => {
 
             this.myLoading=false;
             if(res_data.success == false)
@@ -431,7 +433,7 @@ export class ProfileComponent implements OnInit {
             "confirm_token": this.otp_confirm_token
     }
 
-        this.helper.http.post('/api/store/addcompanyverifyotp', data).map((response: Response) => response.json()) .subscribe(res_data => {
+        this.helper.http.post('/api/store/addcompanyverifyotp', data).pipe(map((response: Response) => response.json())) .subscribe(res_data => {
             if(res_data.success == true){
                 this.otp_verify_modal.close();
                 this.helper.data.storage = {
@@ -470,7 +472,7 @@ export class ProfileComponent implements OnInit {
             "confirm_token": this.otp_confirm_token
     }
 
-        this.helper.http.post('/api/store/addcompanyverifycvv', data).map((response: Response) => response.json()) .subscribe(res_data => {
+        this.helper.http.post('/api/store/addcompanyverifycvv', data).pipe(map((response: Response) => response.json())) .subscribe(res_data => {
             if(res_data.success == true){
                 this.cvv_verify_modal.close();
                 this.helper.data.storage = {
@@ -510,7 +512,7 @@ export class ProfileComponent implements OnInit {
 
         // console.log("asdsfsfererer");
         // console.log(card_data)
-        this.helper.http.post('/api/store/addcompany', card_data).map((response: Response) => response.json()) .subscribe(res_data => {
+        this.helper.http.post('/api/store/addcompany', card_data).pipe(map((response: Response) => response.json())) .subscribe(res_data => {
             if(res_data.success == true){
                 this.add_company_modal.close();
                 this.helper.data.storage = {
@@ -600,7 +602,7 @@ export class ProfileComponent implements OnInit {
                 this.formData.append('expired_date',this.documentlist.expired_date.formatted);
             }
 
-            this.helper.http.post(this.helper.POST_METHOD.UPLOAD_DOCUMENT,this.formData).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.UPLOAD_DOCUMENT,this.formData).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                     this.formData = new FormData();
                     this.edit_document.fill("false")
@@ -711,7 +713,7 @@ export class ProfileComponent implements OnInit {
     {
         this.myLoading=true;
         var store = JSON.parse(localStorage.getItem('store'));
-        this.helper.http.post(this.helper.POST_METHOD.ADMIN_OTP_VERIFICATION,otp_json).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.ADMIN_OTP_VERIFICATION,otp_json).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
             this.myLoading=false;
             if(res_data.success == true)
@@ -792,7 +794,7 @@ export class ProfileComponent implements OnInit {
     otp_verified(otp_verified_json)
     {
         this.myLoading=true;
-        this.helper.http.post(this.helper.POST_METHOD.OTP_VERIFICATION,otp_verified_json).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.OTP_VERIFICATION,otp_verified_json).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
             this.myLoading=false;
             if(res_data.success == true)
             {
@@ -841,7 +843,7 @@ export class ProfileComponent implements OnInit {
 
         this.formData.append('login_by',this.store_edit.login_by);
 
-      this.helper.http.post(this.helper.POST_METHOD.UPDATE,this.formData).map((response: Response) => response.json()) .subscribe(res_data => {
+      this.helper.http.post(this.helper.POST_METHOD.UPDATE,this.formData).pipe(map((response: Response) => response.json())) .subscribe(res_data => {
 
           this.myLoading=false;
           this.store_edit.old_password="";

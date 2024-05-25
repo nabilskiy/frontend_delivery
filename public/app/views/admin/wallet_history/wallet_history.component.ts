@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Response} from '@angular/http';
 import {Helper} from "../../helper";
@@ -84,7 +86,7 @@ export class WalletHistoryComponent implements OnInit {
             start_date: this.start_date, end_date: this.end_date,
             user_type: this.user_type, wallet_comment_id: this.wallet_comment_id,
             search_field: this.search_field, search_value: this.search_value, page: this.page
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success == false) {
 
@@ -111,7 +113,7 @@ export class WalletHistoryComponent implements OnInit {
             start_date: this.start_date, end_date: this.end_date,
              user_type: this.user_type, wallet_comment_id: this.wallet_comment_id,
             search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             var json2csv = require('json2csv');
             res_data.wallet.forEach((wallet_detail, index) => {
                 if (wallet_detail.user_type == 7) {
@@ -191,7 +193,7 @@ export class WalletHistoryComponent implements OnInit {
             start_date: this.start_date, end_date: this.end_date,
              user_type: this.user_type, wallet_comment_id: this.wallet_comment_id,
             search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             var json_data = [];
             var json2excel = require('js2excel');
             res_data.wallet.forEach((wallet_detail, index) => {

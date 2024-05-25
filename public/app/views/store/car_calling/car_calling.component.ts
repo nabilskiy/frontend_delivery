@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, NgZone,  OnInit, ViewContainerRef, ViewChild } from '@angular/core';
 import {Response } from '@angular/http';
 import {Helper} from "../../store_helper";
@@ -200,7 +202,7 @@ export class StoreCarCallingComponent implements OnInit {
         };
 
 
-        this.helper.http.post(this.helper.POST_METHOD.GET_COUNTRY_PHONE_NUMBER_LENGTH, {country_id: this.user_data.country_id}).map((response: Response) => response.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_COUNTRY_PHONE_NUMBER_LENGTH, {country_id: this.user_data.country_id}).pipe(map((response: Response) => response.json())).subscribe(res_data => {
 
             if(res_data.success){
                 this.minimum_phone_number_length = res_data.minimum_phone_number_length;
@@ -253,7 +255,7 @@ export class StoreCarCallingComponent implements OnInit {
 
     get_vehicle_list(){
         this.helper.http.post('/api/store/get_vehicles_list', {store_id: this.store_id,
-            server_token: this.server_token}).map((response: Response) => response.json()).subscribe(res_data => {
+            server_token: this.server_token}).pipe(map((response: Response) => response.json())).subscribe(res_data => {
             console.log('get_vehicle_list', res_data)
             if(this.is_store_can_complete_order || this.is_store_can_add_provider){
                 this.vehicle_list = res_data.vehicles;
@@ -341,7 +343,7 @@ export class StoreCarCallingComponent implements OnInit {
                 server_token: this.server_token
             }
 
-            this.helper.http.post(this.helper.POST_METHOD.STORE_CHANGE_DELIVERY_ADDRESS, json).map((response: Response) => response.json()).subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.STORE_CHANGE_DELIVERY_ADDRESS, json).pipe(map((response: Response) => response.json())).subscribe(res_data => {
 
                 if(res_data.success){
                     this.helper.user_cart.cart_data.deliveryLatLng = this.delivery_location;
@@ -409,7 +411,7 @@ export class StoreCarCallingComponent implements OnInit {
             use_car_calling: true,
         }
 
-        this.helper.http.post(this.helper.POST_METHOD.GET_ORDER_CART_INVOICE, get_order_cart_invoice_json).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_ORDER_CART_INVOICE, get_order_cart_invoice_json).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
                 console.log('Set invoice - GET_ORDER_CART_INVOICE(res_data): ', res_data);
                 this.myLoading = false;
                 if(res_data.success){
@@ -486,7 +488,7 @@ export class StoreCarCallingComponent implements OnInit {
             total_item_tax: this.helper.user_cart.total_item_tax,
             total_cart_price: this.product_total
         }
-        this.helper.http.post(this.helper.POST_METHOD.ADD_ITEM_IN_CART, json).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.ADD_ITEM_IN_CART, json).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 console.log(res_data)
                 if(res_data.success){
                     this.user_data.user_id = res_data.user_id;
@@ -526,7 +528,7 @@ export class StoreCarCallingComponent implements OnInit {
             order_payment_id: this.helper.user_cart.order_payment_id,
             is_payment_mode_cash: true
         }
-        this.helper.http.post(this.helper.POST_METHOD.PAY_ORDER_PAYMENT, json).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.PAY_ORDER_PAYMENT, json).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                 if(res_data.success){
                     this.create_order_service();
@@ -556,7 +558,7 @@ export class StoreCarCallingComponent implements OnInit {
             vehicle_id: this.selected_vehicle_id
         }
 
-        this.helper.http.post(this.helper.POST_METHOD.STORE_CREATE_ORDER, json).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.STORE_CREATE_ORDER, json).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
             console.log('Create Order: ', res_data)
             this.myLoading = false;
             if(res_data.success){

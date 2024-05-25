@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Response} from '@angular/http';
 import {Helper} from "../../helper";
@@ -85,7 +87,7 @@ export class TransactionHistoryComponent implements OnInit {
             start_date: this.start_date, end_date: this.end_date,
             sort_field: this.sort_field, sort_transaction_history: this.sort_transaction_history,
             search_field: this.search_field, search_value: this.search_value, page: this.page
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success == false) {
                 this.transaction_history_list = [];
@@ -108,7 +110,7 @@ export class TransactionHistoryComponent implements OnInit {
             start_date: this.start_date, end_date: this.end_date,
             sort_field: this.sort_field, sort_transaction_history: this.sort_transaction_history,
             search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             var json2csv = require('json2csv');
             res_data.transfer_history.forEach((transfer_history_detail, index) => {
                 if (transfer_history_detail.user_type == 8) {
@@ -187,7 +189,7 @@ export class TransactionHistoryComponent implements OnInit {
             start_date: this.start_date, end_date: this.end_date,
             sort_field: this.sort_field, sort_transaction_history: this.sort_transaction_history,
             search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             var json_data = [];
             var json2excel = require('js2excel');
             res_data.transfer_history.forEach((transfer_history_detail, index) => {

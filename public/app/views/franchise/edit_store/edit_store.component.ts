@@ -1,8 +1,10 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewContainerRef, ViewChild} from '@angular/core';
 import {Response} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
 import {ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
 import {Helper} from "../../franchise_helper";
 import {ADMIN_PROFIT_ON_ORDERS} from "../../../constant";
@@ -193,7 +195,7 @@ export class EditFranchiseStoreComponent implements OnInit {
 
 
         });
-        this.helper.http.post('/admin/get_store_data', {store_id: this.store_id}).map((response: Response) => response.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/get_store_data', {store_id: this.store_id}).pipe(map((response: Response) => response.json())).subscribe(res_data => {
             
             this.myLoading = false;
             if (res_data.success == false) {
@@ -423,7 +425,7 @@ export class EditFranchiseStoreComponent implements OnInit {
 
 
 
-        this.helper.http.post('/admin/update_store', this.formData).map((response: Response) => response.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/update_store', this.formData).pipe(map((response: Response) => response.json())).subscribe(res_data => {
 
             this.myLoading = false;
 

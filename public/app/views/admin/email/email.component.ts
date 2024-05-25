@@ -1,8 +1,10 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Response} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
 import {Helper} from "../../helper";
 declare var jQuery: any;
 
@@ -71,7 +73,7 @@ export class EmailComponent implements OnInit {
 
         }
 
-        this.helper.http.post('/api/admin/get_setting_detail_for_mail_config', {}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/api/admin/get_setting_detail_for_mail_config', {}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             
             this.email_configuration.email = res_data.setting.email,
             this.email_configuration.password = res_data.setting.password
@@ -79,7 +81,7 @@ export class EmailComponent implements OnInit {
         });
 
         this.email_id = this.helper.router_id.admin.email_id
-        this.helper.http.get('/admin/email_list').map((res: Response) => res.json()).subscribe(res => {
+        this.helper.http.get('/admin/email_list').pipe(map((res: Response) => res.json())).subscribe(res => {
             this.email_list = res.email_details
 
         });
@@ -87,7 +89,7 @@ export class EmailComponent implements OnInit {
 
             this.update_email.email_unique_title = res_data.selected;
             this.email_id = res_data.selected;
-            this.helper.http.post('/admin/get_email_detail', {email_id: res_data.selected}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post('/admin/get_email_detail', {email_id: res_data.selected}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                 if (res_data.success == false) {
 
@@ -127,7 +129,7 @@ export class EmailComponent implements OnInit {
 
 
     EmailConfiguration(emailconfigurationdata) {
-        this.helper.http.post('/admin/update_email_configuration', emailconfigurationdata).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/update_email_configuration', emailconfigurationdata).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             console.log(res_data.success);
             if (res_data.success == true) {
                 this.helper.data.storage = {
@@ -150,7 +152,7 @@ export class EmailComponent implements OnInit {
     }
 
     UpdateEmail(email_data) {
-        this.helper.http.post('/admin/update_email', email_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/update_email', email_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
       console.log(email_data);
             if (res_data.success == true) {

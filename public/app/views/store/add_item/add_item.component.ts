@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit, ViewChild ,ElementRef} from '@angular/core';
 import {Response } from '@angular/http';
 import {Helper} from "../../store_helper";
@@ -129,7 +131,7 @@ export class AddItemComponent implements OnInit {
             this.add_item.store_id=store._id
             this.add_item.server_token=store.server_token
 
-            this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_LIST,{store_id:store._id, server_token:store.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_LIST,{store_id:store._id, server_token:store.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                 this.myLoading=false;
                 if(res_data.success === false) {
@@ -158,7 +160,7 @@ export class AddItemComponent implements OnInit {
             });
 
             this.helper.http.post(this.helper.POST_METHOD.GET_IMAGE_SETTING, {
-            }).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            }).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                     this.image_setting.image_ratio = res_data.image_setting.item_image_ratio;
                     this.image_setting.image_min_width = res_data.image_setting.item_image_min_width;
@@ -327,7 +329,7 @@ export class AddItemComponent implements OnInit {
                     }
         this.add_item.is_required=false;
         this.add_item.type=1;
-        this.helper.http.post(this.helper.POST_METHOD.GET_SOECIFICATION_LIST, json).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_SOECIFICATION_LIST, json).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                 this.myLoading=false;
                 if(res_data.success == false)
@@ -441,7 +443,7 @@ export class AddItemComponent implements OnInit {
             this.spec_list_error=0;
             var store = JSON.parse(localStorage.getItem('store'));
 
-            this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_LIST,{store_id:store._id, server_token:store.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_LIST,{store_id:store._id, server_token:store.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                 if(res_data.success == false)
                 {
@@ -534,7 +536,7 @@ export class AddItemComponent implements OnInit {
         itemdata.name=itemdata.name.trim();
 
         setTimeout( () => {
-            this.helper.http.post(this.helper.POST_METHOD.ADD_ITEM,itemdata).map((res:Response) => res.json()).subscribe(res_data=>{
+            this.helper.http.post(this.helper.POST_METHOD.ADD_ITEM,itemdata).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
                 
                 if(res_data.success == true)
@@ -552,7 +554,7 @@ export class AddItemComponent implements OnInit {
                             }
                         });
                         this.formData.append("item_id", res_data.item._id);
-                        this.helper.http.post(this.helper.POST_METHOD.UPLOAD_ITEM_IMAGE,this.formData).map((res:Response) => res.json()).subscribe(res_data=>{
+                        this.helper.http.post(this.helper.POST_METHOD.UPLOAD_ITEM_IMAGE,this.formData).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
                             this.myLoading=false;
                             this.helper.router.navigate(['store/item']);
                         },

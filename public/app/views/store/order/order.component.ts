@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewContainerRef, ViewChild} from '@angular/core';
 import {Response} from '@angular/http';
 import {Helper} from "../../store_helper";
@@ -140,7 +142,7 @@ export class StoreOrderComponent implements OnInit {
         this.helper.http.post(this.helper.POST_METHOD.ORDER_LIST_SEARCH_SORT, {
             store_id: this.store_id, server_token: this.server_token, sort_field: this.sort_field, sort_order: this.sort_order,
             search_field: this.search_field, search_value: this.search_value, page: this.page
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             console.log(res_data)
             this.myLoading = false;
@@ -176,7 +178,7 @@ export class StoreOrderComponent implements OnInit {
         this.helper.http.post(this.helper.POST_METHOD.ORDER_LIST_SEARCH_SORT, {
             store_id: this.store_id, server_token: this.server_token, sort_field: this.sort_field, sort_order: this.sort_order,
             search_field: this.search_field, search_value: this.search_value, page: this.page
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             this.myLoading = false;
             if (res_data.success == false) {
@@ -228,7 +230,7 @@ export class StoreOrderComponent implements OnInit {
                 server_token: this.server_token,
                 order_id: data.order_id,
                 order_status: data.order_status
-            }).map((res: Response) => res.json()).subscribe(res_data => {
+            }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
                 this.myLoading = false;
                 if (res_data.success == false) {
@@ -293,7 +295,7 @@ export class StoreOrderComponent implements OnInit {
                 server_token: this.server_token,
                 order_id: data.order_id,
                 order_status: data.order_status
-            }).map((res: Response) => res.json()).subscribe(res_data => {
+            }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
                 this.myLoading = false;
                 if (res_data.success == false) {
@@ -328,7 +330,7 @@ export class StoreOrderComponent implements OnInit {
         } else {
             json = {store_id: this.store_id, server_token: this.server_token, order_id: order_id}
         }
-        this.helper.http.post(this.helper.POST_METHOD.CREATE_REQUEST, json).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.CREATE_REQUEST, json).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             this.myLoading = false;
             if (res_data.success == false) {
@@ -367,7 +369,7 @@ export class StoreOrderComponent implements OnInit {
                 store_id: this.store_id,
                 server_token: this.server_token,
                 order_id: this.order_id
-            }).map((res: Response) => res.json()).subscribe(res_data => {
+            }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
                 this.myLoading = false;
                 if (res_data.success == false) {
@@ -400,7 +402,7 @@ export class StoreOrderComponent implements OnInit {
                 store_id: this.store_id,
                 server_token: this.server_token,
                 order_id: this.order_id
-            }).map((res: Response) => res.json()).subscribe(res_data => {
+            }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
                 this.myLoading = false;
                 if (res_data.success == false) {

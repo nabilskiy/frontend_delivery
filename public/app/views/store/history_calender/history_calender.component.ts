@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit,ViewContainerRef , ViewChild} from '@angular/core';
 import {Response } from '@angular/http';
 import {Helper} from "../../store_helper";
@@ -14,7 +16,7 @@ import {
     addHours
 } from 'date-fns';
 
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import {CalendarEvent, DateFormatterParams, CalendarDateFormatter} from 'angular-calendar';
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 
@@ -92,20 +94,20 @@ export class HistoryCalenderComponent implements OnInit {
     }
 
     get_order_list(){
-        this.helper.http.post('' , {store_id: this.store_id, server_token: this.server_token}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('' , {store_id: this.store_id, server_token: this.server_token}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
           this.myLoading = false;
           this.order_list = res_data.order_list;
           this.order_filter();
         });
     }
     get_delivery_list(){
-        this.helper.http.post('' , {store_id: this.store_id, server_token: this.server_token}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('' , {store_id: this.store_id, server_token: this.server_token}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             this.delivery_list = res_data.delivery_list;
         });
     }
     get_completed_order_list(){
-        this.helper.http.post('' , {store_id: this.store_id, server_token: this.server_token}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('' , {store_id: this.store_id, server_token: this.server_token}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             this.completed_order_list = res_data.completed_order_list;
         });

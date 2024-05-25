@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, NgZone,  OnInit, ViewContainerRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Response } from '@angular/http';
@@ -32,8 +34,8 @@ export class MenuComponent implements OnInit {
     ngOnInit() {}
 
     get_products() {
-        this.helper.http.post(this.helper.POST_METHOD.GET_STORE_MENU, { store_id: this.id })
-            .map((res: Response) => res.json())
+        this.helper.http.post(this.helper.POST_METHOD.GET_STORE_MENU, { store_id: this.id }).pipe(
+            map((res: Response) => res.json()))
             .subscribe(res => {
                 let specification_price;
                 this.product_item_list = res.products;

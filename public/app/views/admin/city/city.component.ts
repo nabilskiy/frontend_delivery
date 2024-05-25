@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Helper} from "../../helper";
 import {Http, Response} from '@angular/http';
@@ -98,7 +100,7 @@ export class cityComponent implements OnInit {
             this.map.fitBounds(bounds);
         });
 
-        this.helper.http.post('/admin/city_list_search_sort', {}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/city_list_search_sort', {}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             console.log(res_data)
             if (res_data.success == false) {
@@ -243,7 +245,7 @@ export class cityComponent implements OnInit {
         this.helper.router.navigate(['admin/city/edit']);
     }
     is_business_change(id, event) {
-        this.helper.http.post('/admin/toggle_change', {city_id: id, is_business: event}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/toggle_change', {city_id: id, is_business: event}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             if (res_data.success == false) {
 
@@ -253,7 +255,7 @@ export class cityComponent implements OnInit {
     }
 
     is_cash_payment_mode_change(id, event) {
-        this.helper.http.post('/admin/toggle_change', {city_id: id, is_cash_payment_mode: event}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/toggle_change', {city_id: id, is_cash_payment_mode: event}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             if (res_data.success == false) {
 
@@ -263,7 +265,7 @@ export class cityComponent implements OnInit {
     }
 
     is_other_payment_mode_change(id, event) {
-        this.helper.http.post('/admin/toggle_change', {city_id: id, is_other_payment_mode: event}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/toggle_change', {city_id: id, is_other_payment_mode: event}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             if (res_data.success == false) {
 

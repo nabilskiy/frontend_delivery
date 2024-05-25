@@ -1,8 +1,10 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit , ViewChild, ViewContainerRef} from '@angular/core';
 import {Response } from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
 import {Helper} from "../../store_helper";
 declare var jQuery:any;
 declare var swal: any;
@@ -167,7 +169,7 @@ export class SettingComponent implements OnInit {
         {
             language = 'en'
         }
-        this.helper.http.post(this.helper.POST_METHOD.GET_STORE_DATA,{store_id:this.store_setting.store_id, server_token:this.store_setting.server_token}).map((response: Response) => response.json()) .subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_STORE_DATA,{store_id:this.store_setting.store_id, server_token:this.store_setting.server_token}).pipe(map((response: Response) => response.json())) .subscribe(res_data => {
 
             if(res_data.success == false)
             {
@@ -496,7 +498,7 @@ export class SettingComponent implements OnInit {
     updateStoreTimeService()
     {
         this.myLoading=true;
-        this.helper.http.post(this.helper.POST_METHOD.UPDATE_STORE_TIME,{store_time:this.store_setting.store_time,store_id:this.store_setting.store_id,server_token:this.store_setting.server_token}).map((response: Response) => response.json()) .subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.UPDATE_STORE_TIME,{store_time:this.store_setting.store_time,store_id:this.store_setting.store_id,server_token:this.store_setting.server_token}).pipe(map((response: Response) => response.json())) .subscribe(res_data => {
 
             this.myLoading=false;
             if(res_data.success == false)
@@ -573,7 +575,7 @@ export class SettingComponent implements OnInit {
 
         console.log("store_data.famous_products_tags : "+store_data.famous_products_tags)
   
-        this.helper.http.post(this.helper.POST_METHOD.UPDATE,store_data).map((response: Response) => response.json()) .subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.UPDATE,store_data).pipe(map((response: Response) => response.json())) .subscribe(res_data => {
 
             this.myLoading=false;
             if(res_data.success == false)

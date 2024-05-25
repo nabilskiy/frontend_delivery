@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {Helper} from "../../helper";
 import {Http, Response} from '@angular/http';
@@ -158,7 +160,7 @@ export class StoreProviderComponent implements OnInit {
             this.search_field = res_data.selected;
 
         });
-        this.helper.http.get('/admin/vehicle_list_for_provider').map((res: Response) => res.json()).subscribe(res => {
+        this.helper.http.get('/admin/vehicle_list_for_provider').pipe(map((res: Response) => res.json())).subscribe(res => {
             this.vehicle_service_list = res.vehicles;
         });
 
@@ -178,7 +180,7 @@ export class StoreProviderComponent implements OnInit {
         this.helper.http.post('/api/provider/provider_list_search_sort', {store_id: this.store_id, number_of_rec: this.number_of_rec,
             sort_field: this.sort_field, sort_provider: this.sort_provider, provider_page_type: this.provider_page_type,
             search_field: this.search_field, search_value: this.search_value, page: this.page
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
 
             if (res_data.success == false) {
@@ -214,7 +216,7 @@ export class StoreProviderComponent implements OnInit {
         this.is_edit = false;
         this.selected_tab = 3;
         this.myLoading = true;
-        this.helper.http.post('/admin/get_user_referral_history', {id: this.provider_detail._id, type: 8}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/get_user_referral_history', {id: this.provider_detail._id, type: 8}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 this.myLoading = false;
                 if (res_data.success == false) {
                     this.referral_history = [];
@@ -233,7 +235,7 @@ export class StoreProviderComponent implements OnInit {
         this.is_edit = false;
         this.selected_tab = 4;
         this.myLoading = true;
-        this.helper.http.post('/admin/get_provider_review_history', {provider_id: this.provider_detail._id}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/get_provider_review_history', {provider_id: this.provider_detail._id}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 this.myLoading = false;
                 if (res_data.success == false) {
                     this.review_list = [];
@@ -256,7 +258,7 @@ export class StoreProviderComponent implements OnInit {
         this.is_edit = false;
         this.selected_tab = 5;
         this.myLoading = true;
-        this.helper.http.post('/admin/get_bank_detail', {id: this.provider_detail._id, type: this.helper.ADMIN_DATA_ID.PROVIDER}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/get_bank_detail', {id: this.provider_detail._id, type: this.helper.ADMIN_DATA_ID.PROVIDER}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 this.myLoading = false;
                 if (res_data.success == false) {
                     this.bank_detail_list = [];
@@ -277,7 +279,7 @@ export class StoreProviderComponent implements OnInit {
         this.formData.append('email', this.provider_detail.email);
         this.formData.append('first_name', this.provider_detail.first_name);
         this.formData.append('last_name', this.provider_detail.last_name);
-        this.helper.http.post('/admin/update_provider', this.formData).map((response: Response) => response.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/update_provider', this.formData).pipe(map((response: Response) => response.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success == false) {
                 this.helper.data.storage = {
@@ -359,7 +361,7 @@ export class StoreProviderComponent implements OnInit {
         this.wallet = null;
     }
     AddWallet(add_wallet_data) {
-        this.helper.http.post('/admin/add_wallet', add_wallet_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/add_wallet', add_wallet_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             if (res_data.success == true) {
                 this.helper.data.storage = {
                     "message": this.helper.MESSAGE_CODE[res_data.message],
@@ -390,7 +392,7 @@ export class StoreProviderComponent implements OnInit {
         this.content = "";
     }
     SendSms(sms_data) {
-        this.helper.http.post('/admin/send_sms', sms_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/send_sms', sms_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             if (res_data.success == true) {
                 this.helper.data.storage = {
@@ -421,7 +423,7 @@ export class StoreProviderComponent implements OnInit {
         this.content = "";
     }
     SendNotification(notification_data) {
-        this.helper.http.post('/admin/send_notification', notification_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/send_notification', notification_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
 
             if (res_data.success == true) {
@@ -449,7 +451,7 @@ export class StoreProviderComponent implements OnInit {
         this.helper.http.post('/admin/provider_approve_decline', {
             provider_id: provider_id,
             provider_page_type: provider_page_type
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             if (res_data.success == false) {
                 this.helper.data.storage = {
@@ -479,7 +481,7 @@ export class StoreProviderComponent implements OnInit {
     get_document_list(){
         this.is_edit = false;
         this.selected_tab = 2;
-        this.helper.http.post('/admin/view_document_list', {id: this.provider_detail._id, type: 8}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/view_document_list', {id: this.provider_detail._id, type: 8}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 this.myLoading = false;
                 if (res_data.success == false) {
                     this.document_list = [];
@@ -590,7 +592,7 @@ export class StoreProviderComponent implements OnInit {
                 this.formData.append('expired_date', this.documentlist.expired_date.formatted);
             }
 
-            this.helper.http.post('/admin/upload_document', this.formData).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post('/admin/upload_document', this.formData).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                     this.formData = new FormData();
                     this.edit_document.fill("false")
@@ -643,7 +645,7 @@ export class StoreProviderComponent implements OnInit {
     providerVehicle(id) {
         this.helper.http.post('/admin/provider_vehicle_list', {
             provider_id: id
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success == false) {
                 this.vehicle_list = [];
@@ -697,7 +699,7 @@ export class StoreProviderComponent implements OnInit {
         this.helper.http.post('/api/provider/provider_list_search_sort', {store_id: this.store_id,
             sort_field: this.sort_field, sort_provider: this.sort_provider, provider_page_type: this.provider_page_type,
             search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             var json2csv = require('json2csv');
             res_data.providers.forEach((provider, index) => {
@@ -733,7 +735,7 @@ export class StoreProviderComponent implements OnInit {
         this.helper.http.post('/api/provider/provider_list_search_sort', {store_id: this.store_id,
             sort_field: this.sort_field, sort_provider: this.sort_provider, provider_page_type: this.provider_page_type,
             search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             var json_data = [];
             var json2excel = require('js2excel');
@@ -790,7 +792,7 @@ export class StoreProviderComponent implements OnInit {
     updateProviderVehicle(provider_vehicle_data) {
         console.log(provider_vehicle_data)
         this.myLoading = true;
-        this.helper.http.post('/admin/provider_vehicle_update', provider_vehicle_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/provider_vehicle_update', provider_vehicle_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
                 this.myLoading = false;
                 if (res_data.success == true) {
                     this.helper.data.storage = {
@@ -839,7 +841,7 @@ export class StoreProviderComponent implements OnInit {
                 this.formData.append('expired_date', document.expired_date.formatted);
             }
 
-            this.helper.http.post('/admin/upload_document', this.formData).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post('/admin/upload_document', this.formData).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                     this.formData = new FormData();
                     this.edit_document.fill("false")
@@ -901,7 +903,7 @@ export class StoreProviderComponent implements OnInit {
             this.helper.message();
         }
         else{
-            this.helper.http.post('/admin/add_vehicle', this.add_vehicle).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post('/admin/add_vehicle', this.add_vehicle).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 this.myLoading = false;
                 console.log(res_data)
                 if (res_data.success) {
@@ -926,7 +928,7 @@ export class StoreProviderComponent implements OnInit {
     AddProvider() {
         this.add_provider.store_id = this.store_id;
         this.myLoading = true;
-        this.helper.http.post('/store/add_new_provider', this.add_provider).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/store/add_new_provider', this.add_provider).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success) {
                 this.add_provider = {};

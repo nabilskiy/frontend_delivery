@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {Helper} from "../../helper";
 import {Http, Response} from '@angular/http';
@@ -183,7 +185,7 @@ export class StoresComponent implements OnInit {
         this.helper.http.post('/admin/store_list_search_sort', {
             sort_field: this.sort_field, sort_store: this.sort_store, store_page_type: this.store_page_type,number_of_rec: this.number_of_rec,
             search_field: this.search_field, search_value: this.search_value, page: this.page
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success == false) {
                 this.store_list = [];
@@ -257,7 +259,7 @@ export class StoresComponent implements OnInit {
         this.formData.append('is_phone_number_verified', this.store_detail.is_phone_number_verified);
         this.formData.append('is_document_uploaded', this.store_detail.is_document_uploaded);
         this.formData.append('admin_profit_setting_on_store', admin_profit_setting_on_store);
-        this.helper.http.post('/admin/update_store', this.formData).map((response: Response) => response.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/update_store', this.formData).pipe(map((response: Response) => response.json())).subscribe(res_data => {
             this.myLoading = false;
             this.formData = new FormData();
             if (res_data.success == false) {
@@ -287,7 +289,7 @@ export class StoresComponent implements OnInit {
     deleteStore() {
         this.helper.http.post('/api/admin/delete_store', {
             store_id: this.store_should_deleted_id,
-        }).map((res) => res.json()).subscribe(res => {
+        }).pipe(map((res) => res.json())).subscribe(res => {
             if (res.success) {
                 this.store_list = this.store_list.filter(store => store._id !== this.store_should_deleted_id);
                 this.store_should_deleted_id = null;
@@ -397,7 +399,7 @@ export class StoresComponent implements OnInit {
     // }
 
     AddWallet(add_wallet_data) {
-        this.helper.http.post('/admin/add_wallet', add_wallet_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/add_wallet', add_wallet_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             if (res_data.success == true) {
                 this.helper.data.storage = {
@@ -445,7 +447,7 @@ export class StoresComponent implements OnInit {
         this.content = "";
     }
     SendSms(sms_data) {
-        this.helper.http.post('/admin/send_sms', sms_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/send_sms', sms_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             if (res_data.success == true) {
                 this.helper.data.storage = {
                     "message": this.helper.MESSAGE_CODE[res_data.message],
@@ -474,7 +476,7 @@ export class StoresComponent implements OnInit {
         this.content = "";
     }
     SendNotification(notification_data) {
-        this.helper.http.post('/admin/send_notification', notification_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/send_notification', notification_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             if (res_data.success == true) {
                 this.helper.data.storage = {
                     "message": this.helper.MESSAGE_CODE[res_data.message],
@@ -499,7 +501,7 @@ export class StoresComponent implements OnInit {
         this.helper.http.post('/admin/approve_decline_store', {
             store_id: store_id,
             store_page_type: store_page_type
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             if (res_data.success == false) {
 
@@ -530,7 +532,7 @@ export class StoresComponent implements OnInit {
     get_document_list(){
         this.is_edit = false;
         this.selected_tab = 2;
-        this.helper.http.post('/admin/view_document_list', {id: this.store_detail._id, type: 2}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/view_document_list', {id: this.store_detail._id, type: 2}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 this.myLoading = false;
                 if (res_data.success == false) {
                     this.document_list = [];
@@ -625,7 +627,7 @@ export class StoresComponent implements OnInit {
                 this.formData.append('expired_date', this.documentlist.expired_date.formatted);
             }
 
-            this.helper.http.post('/admin/upload_document', this.formData).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post('/admin/upload_document', this.formData).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                 this.formData = new FormData();
                 this.edit_document.fill("false")
@@ -695,7 +697,7 @@ export class StoresComponent implements OnInit {
         this.helper.http.post('/admin/store_list_search_sort', {
             sort_field: this.sort_field, sort_store: this.sort_store, store_page_type: this.store_page_type,
             search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             var json2csv = require('json2csv');
             res_data.stores.forEach((store, index) => {
@@ -733,7 +735,7 @@ export class StoresComponent implements OnInit {
         this.helper.http.post('/admin/store_list_search_sort', {
             sort_field: this.sort_field, sort_store: this.sort_store, store_page_type: this.store_page_type,
             search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             var json_data = [];
             var json2excel = require('js2excel');
@@ -779,7 +781,7 @@ export class StoresComponent implements OnInit {
     get_referral_history(){
         this.is_edit = false;
         this.selected_tab = 3;
-        this.helper.http.post('/admin/get_user_referral_history', {id: this.store_detail._id, type: this.helper.ADMIN_DATA_ID.STORE}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/get_user_referral_history', {id: this.store_detail._id, type: this.helper.ADMIN_DATA_ID.STORE}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 this.myLoading = false;
                 console.log(res_data)
                 if (res_data.success == false) {
@@ -799,7 +801,7 @@ export class StoresComponent implements OnInit {
         this.is_edit = false;
         this.selected_tab = 4;
         this.myLoading = true;
-        this.helper.http.post('/admin/get_bank_detail', {id: this.store_detail._id, type: this.helper.ADMIN_DATA_ID.STORE}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/get_bank_detail', {id: this.store_detail._id, type: this.helper.ADMIN_DATA_ID.STORE}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 this.myLoading = false;
                 if (res_data.success == false) {
                     this.bank_detail_list = null;
@@ -818,7 +820,7 @@ export class StoresComponent implements OnInit {
         this.is_edit = false;
         this.selected_tab = 5;
         this.myLoading = true;
-        this.helper.http.post('/admin/get_store_review_history', {store_id: this.store_detail._id}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/get_store_review_history', {store_id: this.store_detail._id}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 this.myLoading = false;
                 if (res_data.success == false) {
                     this.review_list = [];

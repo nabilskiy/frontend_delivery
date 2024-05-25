@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {Helper} from "../../franchise_helper";
 import {Http, Response} from '@angular/http';
@@ -99,7 +101,7 @@ export class FranchiseStoresComponent implements OnInit {
         this.helper.http.post('/admin/store_list_search_sort_franchises', {
             store_ids:franchise.store_ids,sort_field: this.sort_field, sort_store: this.sort_store, store_page_type: this.store_page_type,
             search_field: this.search_field, search_value: this.search_value, page: this.page
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             console.log(res_data);
             this.myLoading = false;
             if (res_data.success == false) {
@@ -137,7 +139,7 @@ export class FranchiseStoresComponent implements OnInit {
         this.content = "";
     }
     SendSms(sms_data) {
-        this.helper.http.post('/admin/send_sms', sms_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/send_sms', sms_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             if (res_data.success == true) {
                 this.helper.data.storage = {
                     "message": this.helper.MESSAGE_CODE[res_data.message],
@@ -166,7 +168,7 @@ export class FranchiseStoresComponent implements OnInit {
         this.content = "";
     }
     SendNotification(notification_data) {
-        this.helper.http.post('/admin/send_notification', notification_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/send_notification', notification_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             if (res_data.success == true) {
                 this.helper.data.storage = {
                     "message": this.helper.MESSAGE_CODE[res_data.message],
@@ -191,7 +193,7 @@ export class FranchiseStoresComponent implements OnInit {
         this.helper.http.post('/api/franchise/approve_decline_business_store', {
             store_id: store_id,
             store_page_type: store_page_type
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             if (res_data.success == false) {
 

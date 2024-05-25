@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
 import {Response } from '@angular/http';
 import {Helper} from "../../store_helper";
@@ -104,7 +106,7 @@ export class EditProductComponent implements OnInit {
         {
             this.edit_product.store_id=store._id
             this.edit_product.server_token=store.server_token
-            this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_DATA,{product_id:this.product_id,store_id:store._id, server_token:store.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_DATA,{product_id:this.product_id,store_id:store._id, server_token:store.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                 this.myLoading=false;
                 if(res_data.success == false)
@@ -132,7 +134,7 @@ export class EditProductComponent implements OnInit {
         }
 
         this.helper.http.post(this.helper.POST_METHOD.GET_IMAGE_SETTING, {
-        }).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        }).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
             this.image_setting.image_ratio = res_data.image_setting.product_image_ratio;
             this.image_setting.image_min_width = res_data.image_setting.product_image_min_width;
@@ -303,7 +305,7 @@ export class EditProductComponent implements OnInit {
         this.formData.append("store_id", product_data.store_id);
         this.formData.append("product_id", product_data.product_id);
         this.formData.append("server_token", product_data.server_token);
-        this.helper.http.post(this.helper.POST_METHOD.UPDATE_PRODUCT,this.formData).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.UPDATE_PRODUCT,this.formData).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
             this.myLoading=false;
             if(res_data.success == true)

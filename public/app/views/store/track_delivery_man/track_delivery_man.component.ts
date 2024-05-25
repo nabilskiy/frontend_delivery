@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit, ElementRef, NgZone, ViewChild  } from '@angular/core';
 import { MapsAPILoader } from 'angular2-google-maps/core';
 import {Helper} from "../../store_helper";
@@ -68,7 +70,7 @@ export class StoreTrackDeliveryManComponent implements OnInit {
 
         if(this.request_id !== "")
         {
-          this.helper.http.post(this.helper.POST_METHOD.PROVIDER_LOCATION_TRACK,{request_id:this.request_id,store_id:this.store_id, server_token:this.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+          this.helper.http.post(this.helper.POST_METHOD.PROVIDER_LOCATION_TRACK,{request_id:this.request_id,store_id:this.store_id, server_token:this.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
             this.myLoading=false;
             if(res_data.success == false)
             {
@@ -116,7 +118,7 @@ export class StoreTrackDeliveryManComponent implements OnInit {
           this.interval=setInterval(() => {
 
 
-              this.helper.http.post(this.helper.POST_METHOD.PROVIDER_LOCATION_TRACK,{request_id:this.request_id,store_id:this.store_id, server_token:this.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+              this.helper.http.post(this.helper.POST_METHOD.PROVIDER_LOCATION_TRACK,{request_id:this.request_id,store_id:this.store_id, server_token:this.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                 if(res_data.success == false)
                 {

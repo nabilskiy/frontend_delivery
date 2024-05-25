@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewChild, ViewContainerRef} from "@angular/core";
 import {Response} from '@angular/http';
 import {Helper} from "../../helper";
@@ -151,7 +153,7 @@ export class DeliveriesComponent implements OnInit {
     deleteOrder() {
         this.helper.http.post('/api/admin/delete_request_from_deliveries', {
             request_id: this.requests[this.order_should_deleted_id],
-        }).map((res) => res.json()).subscribe(res => {});
+        }).pipe(map((res) => res.json())).subscribe(res => {});
 
         this.order_should_deleted_id = null;
         this.order_delete_modal.close();
@@ -175,7 +177,7 @@ export class DeliveriesComponent implements OnInit {
         this.page=page;
         this.helper.http.post('/api/admin/delivery_list_search_sort',{request_status:this.request_status, payment_status: this.payment_status,
             search_field:this.search_field,search_value:this.search_value,page:this.page
-        }).map((res:Response) => res.json()).subscribe(res_data=>{
+        }).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
                 this.myLoading = false;
                 if(res_data.success == false)
@@ -208,7 +210,7 @@ export class DeliveriesComponent implements OnInit {
     orderDetail()
     {
         this.helper.http.post('/api/admin/delivery_list_search_sort',{store_id:this.store_id,  payment_status: this.payment_status,server_token:this.server_token,request_status: this.request_status,
-            search_field:this.search_field,search_value:this.search_value,page:this.page }).map((res:Response) => res.json()).subscribe(res_data=>{
+            search_field:this.search_field,search_value:this.search_value,page:this.page }).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
             this.myLoading = false;
             if(res_data.success == false)
@@ -408,7 +410,7 @@ export class DeliveriesComponent implements OnInit {
     //delivery_export_csv
     delivery_export_csv() {
         this.helper.http.post('/api/admin/delivery_list_search_sort',{store_id:this.store_id,  payment_status: this.payment_status,server_token:this.server_token,request_status: this.request_status,
-            search_field: this.search_field, search_value: this.search_value}).map((res:Response) => res.json()).subscribe(res_data=>{
+            search_field: this.search_field, search_value: this.search_value}).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
 
             var json2csv = require('json2csv');
@@ -499,7 +501,7 @@ export class DeliveriesComponent implements OnInit {
     orderAssignProvider(data) {
         this.order_id = data.order_id;
         this.myLoading = true;
-        this.helper.http.post('/api/store/get_vehicle_list', {order_id: this.order_id, city_id: data.city_id, delivery_type: data.delivery_type, store_id: this.store_id, server_token: this.server_token}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/api/store/get_vehicle_list', {order_id: this.order_id, city_id: data.city_id, delivery_type: data.delivery_type, store_id: this.store_id, server_token: this.server_token}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if(res_data.success){
                 this.vehicles = res_data.vehicles;
@@ -522,7 +524,7 @@ export class DeliveriesComponent implements OnInit {
             this.helper.router_id.store.no_deliveryman_orders.splice(index, 1);
         }
         let json = {store_id: this.store_id, server_token: this.server_token, order_id: this.order_id, vehicle_id: this.vehicle_id}
-        this.helper.http.post('/api/store/create_request', json).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/api/store/create_request', json).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if(res_data.success == false)
             {
@@ -562,7 +564,7 @@ export class DeliveriesComponent implements OnInit {
     delivery_export_excel() {
         this.helper.http.post('/api/admin/deliveries_export_excel', {
             search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             if (res_data.success == true) {
                 var json2excel = require('js2excel');
                 let data = res_data.requests;
@@ -586,7 +588,7 @@ export class DeliveriesComponent implements OnInit {
     // ми використаємо його в кейсі коли реквест пройде перевірку на те , що курьєра назначено!
     complete_request(data){
         data.type = 1;
-        this.helper.http.post('api/provider/complete_request', data).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post('api/provider/complete_request', data).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
             if(res_data.success){
 
                 let index = this.requests.findIndex((x)=>x._id == data.request_id);
@@ -668,7 +670,7 @@ export class DeliveriesComponent implements OnInit {
         // api/store/set_started_for_delivery_status - start delivery req
         // api/store/set_coming_for_pickup_status - coming for pickup req
 
-        this.helper.http.post('api/store/set_coming_for_pickup_status', data).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post('api/store/set_coming_for_pickup_status', data).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
             if(res_data.success){
                 this.helper.data.storage = {
                     "message": "Успішно!",

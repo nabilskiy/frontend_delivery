@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit ,ViewContainerRef, ViewChild } from '@angular/core';
 import {Response } from '@angular/http';
 import {Helper} from "../../store_helper";
@@ -151,7 +153,7 @@ export class StoreCreateOrderComponent implements OnInit {
 
         });
 
-        this.helper.http.post(this.helper.POST_METHOD.GET_STORE_PRODUCT_ITEM_LIST,{store_id:this.store_id, server_token:this.server_token}).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.GET_STORE_PRODUCT_ITEM_LIST,{store_id:this.store_id, server_token:this.server_token}).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
                 this.myLoading=false;
                 if(res_data.success == false)

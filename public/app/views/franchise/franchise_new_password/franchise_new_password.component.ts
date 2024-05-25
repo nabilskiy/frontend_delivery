@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit , ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Helper} from "../../franchise_helper";
@@ -71,7 +73,7 @@ export class FranchiseNewPasswordComponent implements OnInit {
                     confirm_password: ""
                 }
 
-                this.helper.http.post(this.helper.POST_METHOD.CHECK_DETAIL,this.store_new_password).map((res:Response) => res.json()).subscribe(res_data=>{
+                this.helper.http.post(this.helper.POST_METHOD.CHECK_DETAIL,this.store_new_password).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
                     this.myLoading=false;
                     if(!res_data.success)
                     {
@@ -99,7 +101,7 @@ export class FranchiseNewPasswordComponent implements OnInit {
     storeNewPassword(newpassworddata)
     {
         this.myLoading=true;
-        this.helper.http.post(this.helper.POST_METHOD.NEW_PASSWORD,this.store_new_password).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.NEW_PASSWORD,this.store_new_password).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
                this.myLoading=false;
             if(res_data.success == false)
             {

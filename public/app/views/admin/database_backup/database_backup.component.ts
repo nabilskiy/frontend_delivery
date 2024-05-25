@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {Helper} from "../../helper";
 import {Http, Response} from '@angular/http';
@@ -58,7 +60,7 @@ export class DatabaseBackupComponent implements OnInit {
     }
 
     get_list(){
-        this.helper.http.post('/admin/list_database_backup', {}).map((res: Response) => res.json()).subscribe(data => {
+        this.helper.http.post('/admin/list_database_backup', {}).pipe(map((res: Response) => res.json())).subscribe(data => {
             this.myLoading = false;
 
             if (data.success == false) {
@@ -75,7 +77,7 @@ export class DatabaseBackupComponent implements OnInit {
     }
 
     restore(id){
-        this.helper.http.post('/admin/restore_database_backup', {id: id}).map((res: Response) => res.json()).subscribe(data => {
+        this.helper.http.post('/admin/restore_database_backup', {id: id}).pipe(map((res: Response) => res.json())).subscribe(data => {
             this.myLoading = false;
             this.get_list();
         },(error: any) => {
@@ -91,7 +93,7 @@ export class DatabaseBackupComponent implements OnInit {
     add_backup(){
         console.log(this.add_backup_detail)
         if(this.add_backup_detail.start_date && this.add_backup_detail.end_date){
-            this.helper.http.post('/admin/add_database_backup', this.add_backup_detail).map((res: Response) => res.json()).subscribe(data => {
+            this.helper.http.post('/admin/add_database_backup', this.add_backup_detail).pipe(map((res: Response) => res.json())).subscribe(data => {
                 this.myLoading = false;
                 this.add_backup_modal.close();
                 this.get_list();

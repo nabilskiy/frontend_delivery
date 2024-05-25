@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit, ViewChild, Input , Output , EventEmitter} from '@angular/core';
 import {Response } from '@angular/http';
 import {Helper} from "../../franchise_helper";
@@ -173,7 +175,7 @@ export class EditFranchiseItemComponent implements OnInit {
                 item_id: this.item_id,
                 franchise_id: franchise._id,
                 server_token: franchise.server_token
-            }).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            }).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                     this.myLoading = false;
                     if (res_data.success == false) {
                         this.helper.data.storage = {
@@ -199,7 +201,7 @@ export class EditFranchiseItemComponent implements OnInit {
                         this.edit_item.specifications_unique_id_count = res_data.item.specifications_unique_id_count
                         this.item_list = res_data.item_array;
                         this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_STORE_LIST,{franchise_id:franchise._id, server_token:franchise.server_token,product_id:res_data.product._id}, {
-                        }).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+                        }).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                                 this.store_list = [];
                                 this.edit_item.store_ids = [];
                                 console.log(res_data);
@@ -225,7 +227,7 @@ export class EditFranchiseItemComponent implements OnInit {
                 });
 
             this.helper.http.post(this.helper.POST_METHOD.GET_IMAGE_SETTING, {
-            }).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            }).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                 this.image_setting.image_ratio = res_data.image_setting.item_image_ratio;
                     this.image_setting.image_min_width = res_data.image_setting.item_image_min_width;
@@ -328,7 +330,7 @@ export class EditFranchiseItemComponent implements OnInit {
         this.edit_item.type = 1;
         this.edit_item.is_required = false;
 
-        this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_LISTS, json).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_LISTS, json).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                 if (res_data.success == false) {
                     if (res_data.error_code == 999) {
@@ -463,7 +465,7 @@ export class EditFranchiseItemComponent implements OnInit {
             specification_group_id: specification._id
         }
 
-        this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_LISTS, json).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_LISTS, json).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                 if (res_data.success == false) {
                     setTimeout(() => {
@@ -595,7 +597,7 @@ export class EditFranchiseItemComponent implements OnInit {
             this.spec_list_error=0;
             var franchise = JSON.parse(localStorage.getItem('franchise'));
 
-            this.helper.http.post(this.helper.POST_METHOD.GET_ITEM_DATA,{item_id:this.item_id,franchise_id:franchise._id, server_token:franchise.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.GET_ITEM_DATA,{item_id:this.item_id,franchise_id:franchise._id, server_token:franchise.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
                     if(res_data.success == false)
                     {
                         if(res_data.error_code == 999)
@@ -710,7 +712,7 @@ export class EditFranchiseItemComponent implements OnInit {
         this.myLoading=true;
         itemdata.name=itemdata.name.trim();
         itemdata.store_id = this.edit_item.store_ids;
-        this.helper.http.post(this.helper.POST_METHOD.UPDATE_ITEM,itemdata).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.UPDATE_ITEM,itemdata).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
             
             if(res_data.success == true)
@@ -759,7 +761,7 @@ export class EditFranchiseItemComponent implements OnInit {
         });
 
         this.formData.append("item_id", this.item_id);
-        this.helper.http.post(this.helper.POST_METHOD.UPDATE_ITEM_IMAGE,this.formData).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.UPDATE_ITEM_IMAGE,this.formData).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
             
             if(res_data.success==false)
             {
@@ -789,7 +791,7 @@ export class EditFranchiseItemComponent implements OnInit {
     delete_image_service()
     {
         this.helper.http.post(this.helper.POST_METHOD.DELETE_ITEM_IMAGE,{franchise_id:this.edit_item.franchise_id , server_token:this.edit_item.server_token,
-                                                                                    _id:this.item_id , image_url:this.deleted_image_url}).map((res:Response) => res.json()).subscribe(res_data=>{
+                                                                                    _id:this.item_id , image_url:this.deleted_image_url}).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
                this.myLoading=false;       
             if(res_data.success==false)
             {

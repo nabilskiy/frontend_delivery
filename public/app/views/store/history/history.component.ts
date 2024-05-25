@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit,ViewContainerRef , ViewChild} from '@angular/core';
 import {Response } from '@angular/http';
 import {Helper} from "../../store_helper";
@@ -223,7 +225,7 @@ export class StoreHistoryComponent implements OnInit {
         this.page=page;
         this.helper.http.post(this.helper.POST_METHOD.HISTORY,{store_id:this.store_id, server_token:this.server_token, start_date:this.start_date,end_date:this.end_date,
             payment_status: this.payment_status, created_by: this.created_by, pickup_type: this.pickup_type, order_type: this.order_type,
-            order_status_id:this.order_status_id, search_field:this.search_field,search_value:this.search_value,page:this.page }).map((res:Response) => res.json()).subscribe(res_data=>{
+            order_status_id:this.order_status_id, search_field:this.search_field,search_value:this.search_value,page:this.page }).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
             this.myLoading=false;
             if(res_data.success == false)
@@ -292,7 +294,7 @@ export class StoreHistoryComponent implements OnInit {
                 order_id: this.order_id
              }
         }
-        this.helper.http.post(method , json).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post(method , json).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             this.myLoading=false;
             if(res_data.success) {
@@ -333,7 +335,7 @@ export class StoreHistoryComponent implements OnInit {
    export_excel() {
        this.helper.http.post('/api/store/export_excel_history', {store_id:this.store_id, server_token:this.server_token, start_date:this.start_date,end_date:this.end_date,
            order_status_id:this.order_status_id, payment_status: this.payment_status, created_by: this.created_by, pickup_type: this.pickup_type, order_type: this.order_type,
-           search_field:this.search_field,search_value:this.search_value}).map((res: Response) => res.json()).subscribe(res => {
+           search_field:this.search_field,search_value:this.search_value}).pipe(map((res: Response) => res.json())).subscribe(res => {
 
                var json2csv = require('json2csv');
 

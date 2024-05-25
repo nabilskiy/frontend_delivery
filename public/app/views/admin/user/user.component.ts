@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {Helper} from "../../helper";
 import {Http, Response} from '@angular/http';
@@ -117,7 +119,7 @@ export class UserComponent implements OnInit {
         this.helper.http.post('/admin/user_list_search_sort', {
             user_page_type: this.user_page_type, number_of_rec: this.number_of_rec,
             search_field: this.search_field, search_value: this.search_value, page: this.page
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success == false) {
                 this.user_list = [];
@@ -172,7 +174,7 @@ export class UserComponent implements OnInit {
         this.formData.append('first_name', this.user_detail.first_name);
         this.formData.append('last_name', this.user_detail.last_name);
         this.formData.append('city', this.user_detail.city);
-        this.helper.http.post('/admin/update_user', this.formData).map((response: Response) => response.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/update_user', this.formData).pipe(map((response: Response) => response.json())).subscribe(res_data => {
             this.myLoading = false;
             this.formData = new FormData();
             if (res_data.success == false) {
@@ -204,7 +206,7 @@ export class UserComponent implements OnInit {
     }
 
     AddWallet(add_wallet_data) {
-        this.helper.http.post('/admin/add_wallet', add_wallet_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/add_wallet', add_wallet_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             if (res_data.success == true) {
                 this.helper.data.storage = {
@@ -240,7 +242,7 @@ export class UserComponent implements OnInit {
         this.content = "";
     }
     SendSms(sms_data) {
-        this.helper.http.post('/admin/send_sms', sms_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/send_sms', sms_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             if (res_data.success == true) {
                 this.helper.data.storage = {
                     "message": this.helper.MESSAGE_CODE[res_data.message],
@@ -269,7 +271,7 @@ export class UserComponent implements OnInit {
         this.content = "";
     }
     SendNotification(notification_data) {
-        this.helper.http.post('/admin/send_notification', notification_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/send_notification', notification_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             if (res_data.success == true) {
                 this.helper.data.storage = {
                     "message": this.helper.MESSAGE_CODE[res_data.message],
@@ -294,7 +296,7 @@ export class UserComponent implements OnInit {
         this.helper.http.post('/admin/approve_decline_user', {
             user_id: user_id,
             user_page_type: user_page_type
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             let user_index = this.user_list.findIndex((x)=>x._id==user_id);
             this.user_list.splice(user_index, 1);
@@ -325,7 +327,7 @@ export class UserComponent implements OnInit {
     get_document_list(){
         this.is_edit = false;
         this.selected_tab = 2;
-        this.helper.http.post('/admin/view_document_list', {id: this.user_detail._id, type: 7}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/view_document_list', {id: this.user_detail._id, type: 7}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
             this.myLoading = false;
             console.log(res_data)
             if (res_data.success == false) {
@@ -349,7 +351,7 @@ export class UserComponent implements OnInit {
         this.is_edit = false;
         this.selected_tab = 3;
         this.myLoading = true;
-        this.helper.http.post('/admin/get_user_referral_history', {id: this.user_detail._id, type: 7}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/get_user_referral_history', {id: this.user_detail._id, type: 7}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success == false) {
                 this.referral_history = [];
@@ -374,7 +376,7 @@ export class UserComponent implements OnInit {
         this.is_edit = false;
         this.selected_tab = 4;
         this.myLoading = true;
-        this.helper.http.post('/admin/get_user_review_history', {user_id: this.user_detail._id}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/get_user_review_history', {user_id: this.user_detail._id}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success == false) {
                 this.review_list = [];
@@ -473,7 +475,7 @@ export class UserComponent implements OnInit {
                 this.formData.append('expired_date', this.documentlist.expired_date.formatted);
             }
 
-            this.helper.http.post('/admin/upload_document', this.formData).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post('/admin/upload_document', this.formData).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                     this.formData = new FormData();
                     this.edit_document.fill("false")
@@ -541,7 +543,7 @@ export class UserComponent implements OnInit {
        this.helper.http.post('/admin/user_list_search_sort', {
             user_page_type: this.user_page_type, number_of_rec: this.number_of_rec,
             search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             var json2csv = require('json2csv');
             res_data.users.forEach((user, index) => {
@@ -574,7 +576,7 @@ export class UserComponent implements OnInit {
        this.helper.http.post('/admin/user_list_search_sort', {
            number_of_rec: this.number_of_rec, user_page_type: this.user_page_type,
             search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             var json_data = [];
             var json2excel = require('js2excel');
@@ -614,7 +616,7 @@ export class UserComponent implements OnInit {
     }
 
     new_user_export_csv() {
-        this.helper.http.get('/api/admin/get_new_users_csv_list').map((res: Response) => res.json()).subscribe(res => {
+        this.helper.http.get('/api/admin/get_new_users_csv_list').pipe(map((res: Response) => res.json())).subscribe(res => {
             console.log('Res from new user csv: ', res);
             // device, time, phone
             const json2csv = require('json2csv');

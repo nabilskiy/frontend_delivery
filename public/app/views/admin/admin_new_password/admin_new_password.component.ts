@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit , ViewContainerRef} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Helper} from "../../helper";
@@ -67,7 +69,7 @@ export class AdminNewPasswordComponent implements OnInit {
                     confirm_password: ""
                 }
 
-               this.helper.http.post('/api/admin/check_detail', this.admin_new_password).map((res: Response) => res.json()).subscribe(res_data => { this.myLoading=false;
+               this.helper.http.post('/api/admin/check_detail', this.admin_new_password).pipe(map((res: Response) => res.json())).subscribe(res_data => { this.myLoading=false;
                    
                     if(!res_data.success)
                     {
@@ -94,7 +96,7 @@ export class AdminNewPasswordComponent implements OnInit {
   adminNewPassword(newpassworddata)
     {
        this.myLoading = true;
-        this.helper.http.post('/api/admin/new_password', this.admin_new_password).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/api/admin/new_password', this.admin_new_password).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             
             this.myLoading = false;
             if(res_data.success == false)

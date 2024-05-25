@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit, ViewChild ,ElementRef} from '@angular/core';
 import {Response } from '@angular/http';
 import {Helper} from "../../franchise_helper";
@@ -130,7 +132,7 @@ export class AddFranchiseItemComponent implements OnInit {
             this.add_item.franchise_id=franchise._id
             this.add_item.server_token=franchise.server_token
 
-            this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_LIST,{franchise_id:franchise._id, server_token:franchise.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_LIST,{franchise_id:franchise._id, server_token:franchise.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                 this.myLoading=false;
                 if(res_data.success === false) {
@@ -158,7 +160,7 @@ export class AddFranchiseItemComponent implements OnInit {
             });
 
             this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_LIST, {
-            }).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            }).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                     this.image_setting.image_ratio = res_data.image_setting.item_image_ratio;
                     this.image_setting.image_min_width = res_data.image_setting.item_image_min_width;
@@ -284,7 +286,7 @@ export class AddFranchiseItemComponent implements OnInit {
                     }
         this.add_item.is_required=false;
         this.add_item.type=1;
-        this.helper.http.post(this.helper.POST_METHOD.GET_SOECIFICATION_LIST, json).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_SOECIFICATION_LIST, json).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                 this.myLoading=false;
                 if(res_data.success == false)
@@ -429,7 +431,7 @@ export class AddFranchiseItemComponent implements OnInit {
             this.spec_list_error=0;
             var franchise = JSON.parse(localStorage.getItem('franchise'));
 
-            this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_LIST,{franchise_id:franchise._id, server_token:franchise.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_LIST,{franchise_id:franchise._id, server_token:franchise.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                 if(res_data.success == false)
                 {
@@ -493,7 +495,7 @@ export class AddFranchiseItemComponent implements OnInit {
         console.log(productid);
             var franchise = JSON.parse(localStorage.getItem('franchise'));
             this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_STORE_LIST,{franchise_id:franchise._id, server_token:franchise.server_token,product_id:productid}, {
-            }).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            }).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                     this.store_list = [];
                     this.add_item.store_ids = [];
                     console.log(res_data);
@@ -549,7 +551,7 @@ export class AddFranchiseItemComponent implements OnInit {
         itemdata.store_id = this.add_item.store_ids;
         console.log(itemdata);
         setTimeout( () => {
-            this.helper.http.post(this.helper.POST_METHOD.ADD_ITEM,itemdata).map((res:Response) => res.json()).subscribe(res_data=>{
+            this.helper.http.post(this.helper.POST_METHOD.ADD_ITEM,itemdata).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
                 
                 if(res_data.success == true)
@@ -567,7 +569,7 @@ export class AddFranchiseItemComponent implements OnInit {
                             }
                         });
                         this.formData.append("item_id", res_data.item._id);
-                        this.helper.http.post(this.helper.POST_METHOD.UPLOAD_ITEM_IMAGE,this.formData).map((res:Response) => res.json()).subscribe(res_data=>{
+                        this.helper.http.post(this.helper.POST_METHOD.UPLOAD_ITEM_IMAGE,this.formData).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
                             this.myLoading=false;
                             this.helper.router.navigate(['franchise/item']);
                         },

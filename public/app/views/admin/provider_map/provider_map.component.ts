@@ -1,10 +1,12 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 
 import {Helper} from "../../helper";
 import {Response} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
 
 declare var google: any;
 declare var jQuery: any;
@@ -69,14 +71,14 @@ export class ProviderMapComponent implements OnInit {
 
 
 
-            this.helper.http.get('api/admin/get_country_list').map((res: Response) => res.json()).subscribe(res_data => {
+            this.helper.http.get('api/admin/get_country_list').pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
                 if (res_data.success) {
                     this.country_list = res_data.countries;
                     setTimeout(function () {
                         jQuery(".chosen-select").trigger("chosen:updated");
                     }, 1000);
-                    this.helper.http.post('/admin/provider_list_for_map', {}).map((res: Response) => res.json()).subscribe(res_data => {
+                    this.helper.http.post('/admin/provider_list_for_map', {}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
                         if (res_data.success) {
                             this.provider_list = res_data.providers;

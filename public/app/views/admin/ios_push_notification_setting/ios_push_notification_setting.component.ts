@@ -1,8 +1,10 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
 import {Helper} from "../../helper";
 declare var jQuery: any;
 
@@ -70,7 +72,7 @@ export class IosPushNotificationSettingComponent implements OnInit {
         }
         var admin_id = localStorage.getItem('admin_id');
         if (admin_id != "" || admin_id != undefined) {
-            this.helper.http.post('/admin/get_detail', {admin_id: admin_id}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post('/admin/get_detail', {admin_id: admin_id}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
           
                 if (res_data.success == true) {
                     if (res_data.admin.admin_type == 3) {
@@ -79,7 +81,7 @@ export class IosPushNotificationSettingComponent implements OnInit {
                 }
             });
         }
-        this.helper.http.post('/api/admin/get_app_keys', {}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/api/admin/get_app_keys', {}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
 
             this.ios_push_notification_setting.user_certificate_mode = res_data.app_keys.user_certificate_mode,
@@ -180,7 +182,7 @@ export class IosPushNotificationSettingComponent implements OnInit {
         this.formData.append("ios_push_certificate_path", pushnotificationdata.ios_push_certificate_path);
 
 
-        this.helper.http.post('/admin/update_ios_push_notification_setting', this.formData).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/update_ios_push_notification_setting', this.formData).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             this.helper.data.storage = {
                 "message": this.helper.MESSAGE_CODE[res_data.message],

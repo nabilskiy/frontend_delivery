@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
 import {Response } from '@angular/http';
 import {Helper} from "../../franchise_helper";
@@ -122,7 +124,7 @@ export class FranchiseStoreOrderComponent implements OnInit {
         this.myLoading=true;
         this.page=page;
         this.helper.http.post(this.helper.POST_METHOD.ORDER_LIST_SEARCH_SORT,{franchise_id:this.franchise_id, server_token:this.server_token,sort_field:this.sort_field,sort_order:this.sort_order,
-                                                       search_field:this.search_field,search_value:this.search_value,page:this.page }).map((res:Response) => res.json()).subscribe(res_data=>{
+                                                       search_field:this.search_field,search_value:this.search_value,page:this.page }).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
             this.myLoading=false;                                          
             if(res_data.success == false)
             { 
@@ -159,7 +161,7 @@ export class FranchiseStoreOrderComponent implements OnInit {
     {
 
         this.helper.http.post(this.helper.POST_METHOD.ORDER_LIST_SEARCH_SORT,{franchise_id:this.franchise_id, server_token:this.server_token,sort_field:this.sort_field,sort_order:this.sort_order,
-                                                       search_field:this.search_field,search_value:this.search_value,page:this.page }).map((res:Response) => res.json()).subscribe(res_data=>{
+                                                       search_field:this.search_field,search_value:this.search_value,page:this.page }).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
             this.myLoading=false;                                             
             if(res_data.success == false)

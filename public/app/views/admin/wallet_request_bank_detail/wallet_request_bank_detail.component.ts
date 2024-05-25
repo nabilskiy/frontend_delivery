@@ -1,8 +1,10 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
 import {Helper} from "../../helper";
 
 @Component({
@@ -39,7 +41,7 @@ export class WalletRequestBankDetailComponent implements OnInit {
 
         this.wallet_request_bank_detail_id = this.helper.router_id.admin.wallet_request_bank_detail_id;
 
-        this.helper.http.post('/admin/get_wallet_request_bank_detail', {bank_detail_id: this.wallet_request_bank_detail_id}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/get_wallet_request_bank_detail', {bank_detail_id: this.wallet_request_bank_detail_id}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
             this.myLoading = false;
 
             if (res_data.success == false) {

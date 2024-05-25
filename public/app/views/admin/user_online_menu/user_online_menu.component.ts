@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {Helper} from "../../helper";
 import {Http, Response} from '@angular/http';
@@ -30,8 +32,8 @@ export class UserOnlineMenuComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.helper.http.post('/api/online_menu/admin/get_phone_reader_data', {})
-            .map((res_data: Response) => res_data.json())
+        this.helper.http.post('/api/online_menu/admin/get_phone_reader_data', {}).pipe(
+            map((res_data: Response) => res_data.json()))
             .subscribe(res_data => {
 
                 if (!res_data.success) {

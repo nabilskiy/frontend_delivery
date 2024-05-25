@@ -1,8 +1,10 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
 import {Helper} from "../../helper";
 declare var jQuery: any;
 
@@ -135,19 +137,19 @@ export class AddCountryComponent implements OnInit {
 
             this.get_country_data(res_data.selected)
         });
-        this.helper.http.post('/api/admin/get_setting_detail', {}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/api/admin/get_setting_detail', {}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
            this.admin_currency_code = res_data.setting.admin_currency_code;
         });
         if (this.country_id == '') {
             this.type = "add";
-            this.helper.http.get('/admin/get_country_list').map((res: Response) => res.json()).subscribe(res => this.country_list = res, error => this.error = error);
+            this.helper.http.get('/admin/get_country_list').pipe(map((res: Response) => res.json())).subscribe(res => this.country_list = res, error => this.error = error);
 
             this.country_exist = ""
         }
         else {
             jQuery('#add').hide();
             this.type = "edit";
-            this.helper.http.post('/admin/get_country_detail', {country_id: this.country_id}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post('/admin/get_country_detail', {country_id: this.country_id}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                 if (res_data.success == false) {
 
@@ -207,7 +209,7 @@ export class AddCountryComponent implements OnInit {
 
     get_country_data(countryname) {
 
-        this.helper.http.post('/admin/get_country_data', {countryname: countryname}).map((res: Response) => res.json()).subscribe(data => {
+        this.helper.http.post('/admin/get_country_data', {countryname: countryname}).pipe(map((res: Response) => res.json())).subscribe(data => {
 
             if (data.success == true) {
                 this.timezone = []
@@ -247,7 +249,7 @@ export class AddCountryComponent implements OnInit {
     addCountry(countrydata) {
         if (this.type == 'add') {
             this.myLoading = true;
-            this.helper.http.post('/admin/add_country_data', countrydata).map((res: Response) => res.json()).subscribe(res_data => {
+            this.helper.http.post('/admin/add_country_data', countrydata).pipe(map((res: Response) => res.json())).subscribe(res_data => {
                 this.myLoading = false;
                 if (res_data.success == true) {
                     this.helper.data.storage = {
@@ -269,7 +271,7 @@ export class AddCountryComponent implements OnInit {
 
     updateCountry(country_data) {
         this.myLoading = true;
-        this.helper.http.post('/admin/update_country', country_data).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/update_country', country_data).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success == true) {
                 this.helper.data.storage = {

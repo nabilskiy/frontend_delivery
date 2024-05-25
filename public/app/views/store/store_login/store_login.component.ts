@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component,ViewContainerRef , OnInit, ViewChild, NgZone } from '@angular/core';
 import {Helper} from "../../store_helper";
 import {Response} from '@angular/http';
@@ -69,7 +71,7 @@ export class store_loginComponent implements OnInit {
         }
 
 
-        this.helper.http.post(this.helper.POST_METHOD.GET_SETTING_DETAIL,{}).map((response: Response) => response.json()) .subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_SETTING_DETAIL,{}).pipe(map((response: Response) => response.json())) .subscribe(res_data => {
 
             this.myLoading=false;
             this.setting_data=res_data.setting
@@ -177,7 +179,7 @@ export class store_loginComponent implements OnInit {
     storeLogin1(logindata)
     {
 
-        this.helper.http.post(this.helper.POST_METHOD.LOGIN,logindata).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.LOGIN,logindata).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
                 this.myLoading=false;
                 if(res_data.success == false)
@@ -240,7 +242,7 @@ export class store_loginComponent implements OnInit {
     generate_otp(otp_json)
     {
         this.myLoading=true;
-        this.helper.http.post(this.helper.POST_METHOD.ADMIN_OTP_VERIFICATION,otp_json).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.ADMIN_OTP_VERIFICATION,otp_json).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
             this.myLoading=false;
             if(res_data.success == true)
             {
@@ -318,7 +320,7 @@ export class store_loginComponent implements OnInit {
     {
         this.modal.close();
         this.myLoading=true;
-        this.helper.http.post(this.helper.POST_METHOD.OTP_VERIFICATION,otp_verified_json).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.OTP_VERIFICATION,otp_verified_json).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
             this.myLoading=false;
             if(res_data.success == true)
             {

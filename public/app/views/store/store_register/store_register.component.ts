@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, ViewChild, ViewContainerRef} from '@angular/core';
 import {Response} from '@angular/http';
 import {ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -128,7 +130,7 @@ export class store_registerComponent {
             is_email_verified: false
 
         }
-        this.helper.http.get(this.helper.GET_METHOD.GET_COUNTRY_LIST).map((response: Response) => response.json()).subscribe(res_data => {
+        this.helper.http.get(this.helper.GET_METHOD.GET_COUNTRY_LIST).pipe(map((response: Response) => response.json())).subscribe(res_data => {
 
             this.country_list = res_data.countries;
             setTimeout(function () {
@@ -139,7 +141,7 @@ export class store_registerComponent {
             (error: any) => {
                 this.helper.http_status(error)
             });
-        this.helper.http.post(this.helper.POST_METHOD.GET_SETTING_DETAIL, {}).map((response: Response) => response.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_SETTING_DETAIL, {}).pipe(map((response: Response) => response.json())).subscribe(res_data => {
             this.myLoading = false;
             this.setting_data = res_data.setting
 
@@ -302,7 +304,7 @@ export class store_registerComponent {
 
     check_referral() {
         this.myLoading = true;
-        this.helper.http.post(this.helper.POST_METHOD.CHECK_REFERRAL, {country_id: this.store_register.country_id, referral_code: this.referral_code, type: 2}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.CHECK_REFERRAL, {country_id: this.store_register.country_id, referral_code: this.referral_code, type: 2}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success) {
                 this.is_referral_apply = true;
@@ -334,7 +336,7 @@ export class store_registerComponent {
         this.store_register.store_delivery_id = '';
         this.store_register.city_id = '';
         this.myLoading = true;
-        this.helper.http.post(this.helper.POST_METHOD.GET_CITY_LIST, {country_id: countryid}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_CITY_LIST, {country_id: countryid}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success) {
 
@@ -403,7 +405,7 @@ export class store_registerComponent {
         this.myLoading = true;
         this.store_register.city_id = cityid;
         this.store_register.store_delivery_id = '';
-        this.helper.http.post(this.helper.POST_METHOD.GET_DELIVERY_LIST_FOR_CITY, {city_id: cityid}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_DELIVERY_LIST_FOR_CITY, {city_id: cityid}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success) {
                 this.delivery_list = res_data.deliveries
@@ -439,7 +441,7 @@ export class store_registerComponent {
                 this.myLoading = true;
                 this.stor_data = stordata
                 if (this.setting_data.is_store_sms_verification == true || this.setting_data.is_store_mail_verification == true) {
-                    this.helper.http.post(this.helper.POST_METHOD.ADMIN_OTP_VERIFICATION, {type: 2, email: stordata.email, country_phone_code: stordata.country_phone_code, phone: stordata.phone}).map((res: Response) => res.json()).subscribe(res_data => {
+                    this.helper.http.post(this.helper.POST_METHOD.ADMIN_OTP_VERIFICATION, {type: 2, email: stordata.email, country_phone_code: stordata.country_phone_code, phone: stordata.phone}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
                         this.myLoading = false;
                         if (res_data.success == true) {
                             this.helper.string_log("email", res_data.otp_for_email)
@@ -535,7 +537,7 @@ export class store_registerComponent {
         this.formData.append('is_phone_number_verified', this.store_register.is_phone_number_verified);
         this.formData.append('is_email_verified', this.store_register.is_email_verified);
 
-        this.helper.http.post(this.helper.POST_METHOD.REGISTER, this.formData).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.REGISTER, this.formData).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             this.myLoading = false;
             if (res_data.success == false) {

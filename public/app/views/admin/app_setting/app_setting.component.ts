@@ -1,8 +1,10 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
 
 import {Helper} from "../../helper";
 
@@ -47,7 +49,7 @@ export class AppSettingComponent implements OnInit {
         
         var admin_id = localStorage.getItem('admin_id');
         if (admin_id != "" || admin_id != undefined) {
-            this.helper.http.post('/admin/get_detail', {admin_id: admin_id}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post('/admin/get_detail', {admin_id: admin_id}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 
                 if (res_data.success == true) {
                     if (res_data.admin.admin_type == 3) {
@@ -57,7 +59,7 @@ export class AppSettingComponent implements OnInit {
             });
         }
         
-        this.helper.http.post('/api/admin/get_setting_detail', {}).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/api/admin/get_setting_detail', {}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             
             this.app_setting.default_search_radius = res_data.setting.default_search_radius,
                 this.app_setting.provider_timeout = res_data.setting.provider_timeout,
@@ -74,7 +76,7 @@ export class AppSettingComponent implements OnInit {
     }
 
     AppSetting(appsettingdata) {
-        this.helper.http.post('/admin/update_app_setting', appsettingdata).map((res: Response) => res.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/update_app_setting', appsettingdata).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             if (res_data.success == true) {
                 this.helper.data.storage = {

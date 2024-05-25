@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, ViewChild, ViewContainerRef} from "@angular/core";
 import {Response} from '@angular/http';
 import {Helper} from "../../helper";
@@ -134,7 +136,7 @@ export class OrderComponent implements OnInit {
     deleteOrder() {
         this.helper.http.post('/api/admin/delete_request_from_orders', {
             order_id: this.order_list[this.order_should_deleted_id],
-        }).map((res) => res.json()).subscribe(res => {});
+        }).pipe(map((res) => res.json())).subscribe(res => {});
 
         this.order_should_deleted_id = null;
         this.order_delete_modal.close();
@@ -163,7 +165,7 @@ export class OrderComponent implements OnInit {
         this.helper.http.post('/admin/orders_list', {
             order_status: this.order_status, payment_status: this.payment_status, pickup_type: this.pickup_type, created_by: this.created_by,
             order_type: this.order_type, search_field: this.search_field, search_value: this.search_value, page: this.page
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if (res_data.success == false) {
 
@@ -190,7 +192,7 @@ export class OrderComponent implements OnInit {
     orderDetail() {
         this.helper.http.post('/admin/orders_list', {order_status: this.order_status, payment_status: this.payment_status, pickup_type: this.pickup_type,
             created_by: this.created_by, order_type: this.order_type, search_field: this.search_field, search_value: this.search_value, page: this.page
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             this.myLoading = false;
             if (res_data.success == false) {
@@ -234,7 +236,7 @@ export class OrderComponent implements OnInit {
         this.helper.http.post('/admin/orders_list', {
             order_status: this.order_status, payment_status: this.payment_status,  pickup_type: this.pickup_type, created_by: this.created_by,
             order_type: this.order_type, search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             var json2csv = require('json2csv');
             res_data.orders.forEach((order, index) => {
@@ -307,7 +309,7 @@ export class OrderComponent implements OnInit {
         this.helper.http.post('/admin/orders_list', {
             order_status: this.order_status, payment_status: this.payment_status,  pickup_type: this.pickup_type, created_by: this.created_by,
             order_type: this.order_type, search_field: this.search_field, search_value: this.search_value
-        }).map((res: Response) => res.json()).subscribe(res_data => {
+        }).pipe(map((res: Response) => res.json())).subscribe(res_data => {
 
             var json_data = [];
             var json2excel = require('js2excel');

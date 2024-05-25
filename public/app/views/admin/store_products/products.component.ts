@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit,ViewContainerRef, ViewChild, ElementRef } from '@angular/core';
 import {Helper} from "../../store_helper";
 import { Http, Response } from '@angular/http';
@@ -168,7 +170,7 @@ export class AdminProductsComponent implements OnInit {
         this.validation_message=this.helper.validation_message;
         this.addproductform=false;
 
-        this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_LIST,{type: this.helper.ADMIN_DATA_ID.ADMIN, store_id:this.add_product.store_id, server_token:this.add_product.server_token}).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_LIST,{type: this.helper.ADMIN_DATA_ID.ADMIN, store_id:this.add_product.store_id, server_token:this.add_product.server_token}).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
             this.myLoading=false;
             this.helper.string_log('loading' , this.myLoading)
             if(res_data.success == false)
@@ -236,7 +238,7 @@ export class AdminProductsComponent implements OnInit {
         });
 
         this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_GROUP, {type: this.helper.ADMIN_DATA_ID.ADMIN,
-            store_id: this.add_product.store_id, server_token: this.add_product.server_token}).map((res: Response) => res.json()).subscribe(res_data => {
+            store_id: this.add_product.store_id, server_token: this.add_product.server_token}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if(res_data.success){
                 this.specification_group_list = res_data.specification_group;
@@ -253,7 +255,7 @@ export class AdminProductsComponent implements OnInit {
         });
 
         this.helper.http.post(this.helper.POST_METHOD.GET_IMAGE_SETTING, {type: this.helper.ADMIN_DATA_ID.ADMIN,
-        }).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        }).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                 this.image_setting.image_ratio = res_data.image_setting.item_image_ratio;
                 this.image_setting.image_min_width = res_data.image_setting.item_image_min_width;
@@ -293,7 +295,7 @@ export class AdminProductsComponent implements OnInit {
 
             this.myLoading=true;
             this.helper.http.post(this.helper.POST_METHOD.DELETE_SPECIFICATION_GROUP,{type: this.helper.ADMIN_DATA_ID.ADMIN, store_id:this.add_product.store_id,server_token:this.add_product.server_token,
-                specification_group_id:id}).map((response: Response) => response.json()) .subscribe(res_data => {
+                specification_group_id:id}).pipe(map((response: Response) => response.json())) .subscribe(res_data => {
 
                     this.myLoading=false;
                     if(res_data.success)
@@ -361,7 +363,7 @@ export class AdminProductsComponent implements OnInit {
         {
             this.myLoading=true;
             this.helper.http.post(this.helper.POST_METHOD.ADD_SPECIFICATION,{type: this.helper.ADMIN_DATA_ID.ADMIN, specification_group_id: this.selected_specification_group_id , specification_name :this.specification_name_array ,
-                store_id:this.add_product.store_id, server_token:this.add_product.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+                store_id:this.add_product.store_id, server_token:this.add_product.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                     this.specification_name_array = [];
                     this.myLoading=false;
@@ -376,7 +378,7 @@ export class AdminProductsComponent implements OnInit {
                         {
                             this.myLoading=true;
                             this.helper.http.post(this.helper.POST_METHOD.DELETE_SPECIFICATION,{type: this.helper.ADMIN_DATA_ID.ADMIN, specification_group_id: this.selected_specification_group_id , specification_id :this.delete_specification_array ,
-                                store_id:this.add_product.store_id, server_token:this.add_product.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+                                store_id:this.add_product.store_id, server_token:this.add_product.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
                                     this.delete_specification_array = [];
                                     this.myLoading=false;
                                     if(res_data.success)
@@ -420,7 +422,7 @@ export class AdminProductsComponent implements OnInit {
         {
             this.myLoading=true;
             this.helper.http.post(this.helper.POST_METHOD.DELETE_SPECIFICATION,{specification_group_id: this.selected_specification_group_id , specification_id :this.delete_specification_array ,
-                store_id:this.add_product.store_id, server_token:this.add_product.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+                store_id:this.add_product.store_id, server_token:this.add_product.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
                     this.delete_specification_array = [];
                     this.myLoading=false;
                     if(res_data.success)
@@ -503,7 +505,7 @@ export class AdminProductsComponent implements OnInit {
             this.myLoading = true;
             this.add_product.is_visible_in_store = true;
             this.add_product.sequence_number = this.product_list.length;
-            this.helper.http.post(this.helper.POST_METHOD.ADD_PRODUCT, this.add_product).map((res: Response) => res.json()).subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.ADD_PRODUCT, this.add_product).pipe(map((res: Response) => res.json())).subscribe(res_data => {
                     this.addproductform = false
                     this.add_product.name = ""
                     this.add_product.is_visible_in_store = true;
@@ -548,7 +550,7 @@ export class AdminProductsComponent implements OnInit {
         }
         product_data.is_visible_in_store = event;
         this.myLoading=true;
-        this.helper.http.post(this.helper.POST_METHOD.UPDATE_PRODUCT,json).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.UPDATE_PRODUCT,json).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
                 this.myLoading=false;
                 if(res_data.success == true)
@@ -587,7 +589,7 @@ export class AdminProductsComponent implements OnInit {
                     type: this.helper.ADMIN_DATA_ID.ADMIN,
                     server_token: this.add_product.server_token,
                     specification_group_name: [this.specification_group_name]
-                }).map((response: Response) => response.json()).subscribe(res_data => {
+                }).pipe(map((response: Response) => response.json())).subscribe(res_data => {
                     this.specification_group_name = "";
                     this.myLoading = false;
                     if (res_data.success) {
@@ -624,7 +626,7 @@ export class AdminProductsComponent implements OnInit {
     get_item_list(){
         this.myLoading = true;
         this.helper.http.post(this.helper.POST_METHOD.GET_STORE_PRODUCT_ITEM_LIST,{type: this.helper.ADMIN_DATA_ID.ADMIN, store_id:this.add_product.store_id, server_token:this.add_product.server_token,
-            product_id: this.selected_product_id}).map((res:Response) => res.json()).subscribe(res_data=>{
+            product_id: this.selected_product_id}).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
             this.myLoading = false;
             if(res_data.success){
                 this.filtered_item_list = res_data.products[0].items;
@@ -698,7 +700,7 @@ export class AdminProductsComponent implements OnInit {
     update_sequence_number(type) {
         this.myLoading = true;
         if(type == 1){
-            this.helper.http.post(this.helper.POST_METHOD.UPDATE_SEQUENCE_NMBER, {type: type, filtered_product_list: this.filtered_product_list}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.UPDATE_SEQUENCE_NMBER, {type: type, filtered_product_list: this.filtered_product_list}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 this.myLoading = false;
                 this.helper.data.storage = {
                     "message": "Category Sequence Updated Successfully",
@@ -707,7 +709,7 @@ export class AdminProductsComponent implements OnInit {
                 this.helper.message();
             });
         } else {
-            this.helper.http.post(this.helper.POST_METHOD.UPDATE_SEQUENCE_NMBER, {type: type, filtered_item_list: this.filtered_item_list}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.UPDATE_SEQUENCE_NMBER, {type: type, filtered_item_list: this.filtered_item_list}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 this.myLoading = false;
                 this.helper.data.storage = {
                     "message": "Item Sequence Updated Successfully",
@@ -836,7 +838,7 @@ export class AdminProductsComponent implements OnInit {
             this.add_item.server_token = this.add_product.server_token;
             this.add_item.name = this.add_item.name.trim();
             this.add_item.sequence_number = this.filtered_item_list.length;
-            this.helper.http.post(this.helper.POST_METHOD.ADD_ITEM, this.add_item).map((res: Response) => res.json()).subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.ADD_ITEM, this.add_item).pipe(map((res: Response) => res.json())).subscribe(res_data => {
                 this.myLoading=false;
                 if(res_data.success == true)
                 {
@@ -984,7 +986,7 @@ export class AdminProductsComponent implements OnInit {
             var index = this.specification_group_list.findIndex((x)=>x._id == this.selected_spec_group_for_item);
             this.item_detail.item_specification_name = this.specification_group_list[index].name;
 
-            this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_LISTS, json).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_LISTS, json).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                 this.product_specification_list = res_data.specification_list.specifications;
                 this.product_specification_list.forEach((specification, index)=>{
@@ -1198,7 +1200,7 @@ export class AdminProductsComponent implements OnInit {
             specification_group_id: specification._id
         }
 
-        this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_LISTS, json).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_LISTS, json).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                 if (res_data.success == false) {
                     setTimeout(() => {
@@ -1317,7 +1319,7 @@ export class AdminProductsComponent implements OnInit {
         let index = this.filtered_item_list.findIndex((x)=>x._id==this.item_detail._id);
         this.item_detail.sequence_number = this.filtered_item_list[index].sequence_number;
 
-        this.helper.http.post(this.helper.POST_METHOD.UPDATE_ITEM,this.item_detail).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.UPDATE_ITEM,this.item_detail).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
                 
             this.filtered_item_list.sort(this.sortItem);
             if(res_data.success == true)
@@ -1367,7 +1369,7 @@ export class AdminProductsComponent implements OnInit {
         });
         this.formData.append("item_id", this.selected_item_id);
         this.formData.append('type', this.helper.ADMIN_DATA_ID.ADMIN);
-        this.helper.http.post(this.helper.POST_METHOD.UPDATE_ITEM_IMAGE,this.formData).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.UPDATE_ITEM_IMAGE,this.formData).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
                 this.new_image_array = [];
                 let index = this.filtered_item_list.findIndex((x)=>x._id == this.item_detail._id);
                 this.filtered_item_list[index] = res_data.item;
@@ -1401,7 +1403,7 @@ export class AdminProductsComponent implements OnInit {
     delete_image_service()
     {
         this.helper.http.post(this.helper.POST_METHOD.DELETE_ITEM_IMAGE,{type: this.helper.ADMIN_DATA_ID.ADMIN, store_id:this.add_product.store_id , server_token:this.add_product.server_token,
-            _id:this.selected_item_id , image_url:this.deleted_image_url}).map((res:Response) => res.json()).subscribe(res_data=>{
+            _id:this.selected_item_id , image_url:this.deleted_image_url}).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
                 this.myLoading=false;
 
 

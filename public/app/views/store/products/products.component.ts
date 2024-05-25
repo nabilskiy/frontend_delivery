@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit,ViewContainerRef, ViewChild, ElementRef } from '@angular/core';
 import {Helper} from "../../store_helper";
 import { Http, Response } from '@angular/http';
@@ -218,7 +220,7 @@ export class ProductsComponent implements OnInit {
         this.validation_message=this.helper.validation_message;
         this.addproductform=false;
 
-        this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_LIST,{store_id:this.add_product.store_id, server_token:this.add_product.server_token}).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.GET_PRODUCT_LIST,{store_id:this.add_product.store_id, server_token:this.add_product.server_token}).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
             this.myLoading=false;
             this.helper.string_log('loading' , this.myLoading)
             if(res_data.success == false)
@@ -286,7 +288,7 @@ setTimeout(() => {
         });
 
         this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_GROUP, {
-            store_id: this.add_product.store_id, server_token: this.add_product.server_token}).map((res: Response) => res.json()).subscribe(res_data => {
+            store_id: this.add_product.store_id, server_token: this.add_product.server_token}).pipe(map((res: Response) => res.json())).subscribe(res_data => {
             this.myLoading = false;
             if(res_data.success){
                 this.specification_group_list = res_data.specification_group;
@@ -303,7 +305,7 @@ setTimeout(() => {
         });
 
         this.helper.http.post(this.helper.POST_METHOD.GET_IMAGE_SETTING, {
-        }).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        }).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                 this.image_setting.image_ratio = res_data.image_setting.item_image_ratio;
                 this.image_setting.image_min_width = res_data.image_setting.item_image_min_width;
@@ -345,7 +347,7 @@ setTimeout(() => {
             this.formData.append('type', this.file_type);
             this.formData.append('store_id', this.add_product.store_id);
             this.formData.append('excel_file', this.import_data_file);
-            this.helper.http.post('/admin/upload_store_data_excel', this.formData).map((res: Response) => res.json()).subscribe(res_data => {
+            this.helper.http.post('/admin/upload_store_data_excel', this.formData).pipe(map((res: Response) => res.json())).subscribe(res_data => {
                 this.myLoading = false;
                 this.formData = new FormData();
                 this.import_data_modal.close();
@@ -376,7 +378,7 @@ setTimeout(() => {
 
             this.myLoading=true;
             this.helper.http.post(this.helper.POST_METHOD.DELETE_SPECIFICATION_GROUP,{store_id:this.add_product.store_id,server_token:this.add_product.server_token,
-                specification_group_id:id}).map((response: Response) => response.json()) .subscribe(res_data => {
+                specification_group_id:id}).pipe(map((response: Response) => response.json())) .subscribe(res_data => {
 
                     this.myLoading=false;
                     if(res_data.success)
@@ -444,7 +446,7 @@ setTimeout(() => {
         {
             this.myLoading=true;
             this.helper.http.post(this.helper.POST_METHOD.ADD_SPECIFICATION,{specification_group_id: this.selected_specification_group_id , specification_name :this.specification_name_array ,
-                store_id:this.add_product.store_id, server_token:this.add_product.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+                store_id:this.add_product.store_id, server_token:this.add_product.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
 
                     this.specification_name_array = [];
                     this.myLoading=false;
@@ -459,7 +461,7 @@ setTimeout(() => {
                         {
                             this.myLoading=true;
                             this.helper.http.post(this.helper.POST_METHOD.DELETE_SPECIFICATION,{specification_group_id: this.selected_specification_group_id , specification_id :this.delete_specification_array ,
-                                store_id:this.add_product.store_id, server_token:this.add_product.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+                                store_id:this.add_product.store_id, server_token:this.add_product.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
                                     this.delete_specification_array = [];
                                     this.myLoading=false;
                                     if(res_data.success)
@@ -503,7 +505,7 @@ setTimeout(() => {
         {
             this.myLoading=true;
             this.helper.http.post(this.helper.POST_METHOD.DELETE_SPECIFICATION,{specification_group_id: this.selected_specification_group_id , specification_id :this.delete_specification_array ,
-                store_id:this.add_product.store_id, server_token:this.add_product.server_token}).map((res_data: Response) => res_data.json()) .subscribe(res_data => {
+                store_id:this.add_product.store_id, server_token:this.add_product.server_token}).pipe(map((res_data: Response) => res_data.json())) .subscribe(res_data => {
                     this.delete_specification_array = [];
                     this.myLoading=false;
                     if(res_data.success)
@@ -589,7 +591,7 @@ setTimeout(() => {
             this.add_product.is_on_delivery = true;
             this.add_product.sequence_number = this.product_list.length;
 
-            this.helper.http.post(this.helper.POST_METHOD.ADD_PRODUCT, this.add_product).map((res: Response) => res.json()).subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.ADD_PRODUCT, this.add_product).pipe(map((res: Response) => res.json())).subscribe(res_data => {
                     this.addproductform = false
                     this.add_product.name = ""
                     this.add_product.is_visible_in_store = true;
@@ -637,7 +639,7 @@ setTimeout(() => {
         product_data.is_visible_in_store = event;
         product_data.is_on_delivery = event;
         this.myLoading=true;
-        this.helper.http.post(this.helper.POST_METHOD.UPDATE_PRODUCT,json).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.UPDATE_PRODUCT,json).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
                 this.myLoading=false;
                 if(res_data.success == true)
@@ -679,7 +681,7 @@ setTimeout(() => {
                     store_id: this.add_product.store_id,
                     server_token: this.add_product.server_token,
                     specification_group_name: [this.specification_group_name]
-                }).map((response: Response) => response.json()).subscribe(res_data => {
+                }).pipe(map((response: Response) => response.json())).subscribe(res_data => {
                     this.specification_group_name = "";
                     this.myLoading = false;
                     if (res_data.success) {
@@ -716,7 +718,7 @@ setTimeout(() => {
     get_item_list(){
         this.myLoading = true;
         this.helper.http.post(this.helper.POST_METHOD.GET_STORE_PRODUCT_ITEM_LIST,{store_id:this.add_product.store_id, server_token:this.add_product.server_token,
-            product_id: this.selected_product_id}).map((res:Response) => res.json()).subscribe(res_data=>{
+            product_id: this.selected_product_id}).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
             this.myLoading = false;
             if(res_data.success){
                 this.filtered_item_list = res_data.products[0].items;
@@ -789,7 +791,7 @@ setTimeout(() => {
     update_sequence_number(type) {
         this.myLoading = true;
         if(type == 1){
-            this.helper.http.post(this.helper.POST_METHOD.UPDATE_SEQUENCE_NMBER, {type: type, filtered_product_list: this.filtered_product_list}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.UPDATE_SEQUENCE_NMBER, {type: type, filtered_product_list: this.filtered_product_list}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 this.myLoading = false;
                 this.helper.data.storage = {
                     "message": "Category Sequence Updated Successfully",
@@ -798,7 +800,7 @@ setTimeout(() => {
                 this.helper.message();
             });
         } else {
-            this.helper.http.post(this.helper.POST_METHOD.UPDATE_SEQUENCE_NMBER, {type: type, filtered_item_list: this.filtered_item_list}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.UPDATE_SEQUENCE_NMBER, {type: type, filtered_item_list: this.filtered_item_list}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
                 this.myLoading = false;
                 this.helper.data.storage = {
                     "message": "Item Sequence Updated Successfully",
@@ -931,7 +933,7 @@ setTimeout(() => {
             this.add_item.sequence_number = this.filtered_item_list.length;
             this.add_item.item_schedule = [];
 
-            this.helper.http.post(this.helper.POST_METHOD.ADD_ITEM, this.add_item).map((res: Response) => res.json()).subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.ADD_ITEM, this.add_item).pipe(map((res: Response) => res.json())).subscribe(res_data => {
                 this.myLoading=false;
                 if(res_data.success == true)
                 {
@@ -1083,7 +1085,7 @@ setTimeout(() => {
 
             this.check_range_validation()
 
-            this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_LISTS, json).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+            this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_LISTS, json).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                 this.product_specification_list = res_data.specification_list.specifications;
                 this.product_specification_list.forEach((specification, index)=>{
@@ -1295,7 +1297,7 @@ setTimeout(() => {
             specification_group_id: specification._id
         }
 
-        this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_LISTS, json).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post(this.helper.POST_METHOD.GET_SPECIFICATION_LISTS, json).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
 
                 if (res_data.success == false) {
                     setTimeout(() => {
@@ -1419,7 +1421,7 @@ setTimeout(() => {
         let index = this.filtered_item_list.findIndex((x)=>x._id==this.item_detail._id);
         this.item_detail.sequence_number = this.filtered_item_list[index].sequence_number;
 
-        this.helper.http.post(this.helper.POST_METHOD.UPDATE_ITEM,this.item_detail).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.UPDATE_ITEM,this.item_detail).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
             this.filtered_item_list.sort(this.sortItem);
             this.myLoading=false;
@@ -1469,7 +1471,7 @@ setTimeout(() => {
             }
         });
         this.formData.append("item_id", this.selected_item_id);
-        this.helper.http.post(this.helper.POST_METHOD.UPDATE_ITEM_IMAGE,this.formData).map((res:Response) => res.json()).subscribe(res_data=>{
+        this.helper.http.post(this.helper.POST_METHOD.UPDATE_ITEM_IMAGE,this.formData).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
 
             let index = this.filtered_item_list.findIndex((x)=>x._id == this.item_detail._id);
             this.filtered_item_list[index].image_url  = res_data.item.image_url;
@@ -1504,7 +1506,7 @@ setTimeout(() => {
     delete_image_service()
     {
         this.helper.http.post(this.helper.POST_METHOD.DELETE_ITEM_IMAGE,{store_id:this.add_product.store_id , server_token:this.add_product.server_token,
-            _id:this.selected_item_id , image_url:this.deleted_image_url}).map((res:Response) => res.json()).subscribe(res_data=>{
+            _id:this.selected_item_id , image_url:this.deleted_image_url}).pipe(map((res:Response) => res.json())).subscribe(res_data=>{
                 this.myLoading=false;
 
                 let index = this.filtered_item_list.findIndex((x)=>x._id == this.item_detail._id);

@@ -1,10 +1,12 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 
 import {Helper} from "../../helper";
 import {Response} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
 
 declare var google: any;
 declare var jQuery: any;
@@ -66,7 +68,7 @@ export class AllCityComponent implements OnInit {
             this.map.fitBounds(bounds);
         });
 
-        this.helper.http.post('/admin/get_all_city_list', {}).map((res_data: Response) => res_data.json()).subscribe(res_data => {
+        this.helper.http.post('/admin/get_all_city_list', {}).pipe(map((res_data: Response) => res_data.json())).subscribe(res_data => {
             this.city_list = res_data.city_list;
             this.city_list.forEach((city) => {
                 if (city.is_use_radius) {
