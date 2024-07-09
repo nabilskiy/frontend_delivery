@@ -13,7 +13,7 @@ import {RatingModule} from "ngx-rating";
 
 @NgModule({
   imports: [
-    CommonModule,DropdownModule,RatingModule,FormsModule,FooterModule,RouterModule,MyDatePickerModule,TranslateModule,MomentModule,Ng2Bs3ModalModule
+    CommonModule,DropdownModule,FormsModule,FooterModule,RouterModule,MyDatePickerModule,TranslateModule,MomentModule,Ng2Bs3ModalModule
   ],
   declarations: [HistoryComponent]
 })

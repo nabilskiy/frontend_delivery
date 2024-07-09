@@ -13,7 +13,7 @@ import {ImageCropperModule} from 'ng2-img-cropper';
 import {DropdownModule} from "ng2-dropdown";
 @NgModule({
   imports: [
-    CommonModule,RouterModule, BrowserModule, DropdownModule, Ng2Bs3ModalModule, ImageCropperModule, FormsModule,FooterModule, UiSwitchModule , TranslateModule ,RatingModule
+    CommonModule,RouterModule, BrowserModule, DropdownModule, Ng2Bs3ModalModule, ImageCropperModule, FormsModule,FooterModule, UiSwitchModule , TranslateModule
   ],
   declarations: [ProductsComponent]
 })
