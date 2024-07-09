@@ -5,7 +5,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import { FormsModule } from '@angular/forms';
 import { UiSwitchModule } from 'angular2-ui-switch';
 import {RouterModule,Routes} from "@angular/router";
-import { TranslateModule } from 'ng2-translate';
+import {TranslateModule} from '@ngx-translate/core';
 import { FooterModule } from '../../../common/franchise/footer/footer.module';
 import {RatingModule} from "ngx-rating";
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';

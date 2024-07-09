@@ -5,7 +5,7 @@ import {HttpModule, JsonpModule} from '@angular/http';
 import {RouterModule} from "@angular/router";
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {Router_id} from "./views/routing_hidden_id";
-import {TranslateModule} from 'ng2-translate';
+import {TranslateModule} from '@ngx-translate/core';
 import {ChartsModule} from 'ng2-charts';
 import {ImageCropperModule} from 'ng2-img-cropper';
 import {UiSwitchModule} from 'angular2-ui-switch'
@@ -15,8 +15,6 @@ import {ROUTES} from "./app.routes";
 import {AppComponent} from './app.component';
 
 import {Data} from "./views/data";
-
-import {SpinnerModule} from 'angular2-spinner/dist';
 
 import {MassNotificationModule} from "./views/admin/mass_notification/mass_notification.module";
 import {PushMarketingModule} from "./views/admin/push_marketing/push_marketing.module";
@@ -237,7 +235,6 @@ import {MenuModule} from "./views/online_menu/menu/menu.module";
         FormsModule,
         UiSwitchModule,
         Ng2Bs3ModalModule,
-        SpinnerModule,
         ToastModule.forRoot(),
         ChartsModule,
         TransactionHistoryModule,

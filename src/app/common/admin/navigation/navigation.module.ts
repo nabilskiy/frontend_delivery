@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { NavigationComponent } from "./navigation.component.js";
-import { TranslateModule } from "ng2-translate";
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   declarations: [NavigationComponent],
