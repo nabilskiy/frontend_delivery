@@ -1,13 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { settingComponent } from './setting.component';
-import {RouterModule} from "@angular/router";
-import { TranslateModule } from 'ng2-translate';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { settingComponent } from "./setting.component";
+import { RouterModule } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
-  imports: [
-    CommonModule,RouterModule,TranslateModule
-  ],
-  declarations: [settingComponent]
+  imports: [CommonModule, RouterModule, TranslateModule],
+  declarations: [settingComponent],
 })
-export class SettingModule { }
+export class SettingModule {}

@@ -5,7 +5,8 @@ import {BrowserModule} from "@angular/platform-browser";
 import {DropdownModule} from "ng2-dropdown";
 import { FormsModule } from '@angular/forms';
 import {RouterModule} from "@angular/router";
-import { TranslateModule } from 'ng2-translate';
+import {TranslateModule} from '@ngx-translate/core';
+
 import { FooterModule } from '../../../common/admin/footer/footer.module';
 import { UiSwitchModule } from 'angular2-ui-switch';
 
