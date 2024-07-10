@@ -12,7 +12,6 @@ import {
     ORDER_CANCELLATION_CHARGE_TYPE, ADMIN_DATA_ID, IMAGE_RATIO
 } from '../../constant';
 import { CONSTANT, price_validation } from "../../constant";
-import {TranslateService} from 'ng2-translate';
 
 import {Router_id} from '../routing_hidden_id';
 import {title, button, heading_title , status , lable_title, message , menu_title} from '../store/store_panel_string';
@@ -21,6 +20,7 @@ import {MESSAGE_CODE} from '../store/store_panel_success_message';
 import {validation_message} from '../store/store_panel_validation_message';
 import {GET_METHOD , POST_METHOD} from './online_menu_http_methods';
 import {StoreCart} from "../store/cart";
+import { TranslateService } from '@ngx-translate/core';
 
 
 

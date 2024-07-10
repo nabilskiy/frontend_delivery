@@ -8,7 +8,6 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {IMyOptions, IMyDateModel} from 'mydatepicker';
 import {Router_id} from './routing_hidden_id';
 import {ERROR_CODE_CONSTANT , PROMO_FOR_ID, PROMO_FOR_STRING, PROMO_FOR, ORDER_STATE , TIMEOUT , ORDER_STATUS_ID, ORDER_CANCELLATION_CHARGE_TYPE, ADMIN_DATA_ID} from '../constant';
-import {TranslateService} from 'ng2-translate';
 import {title, button, heading_title , status , lable_title, message , menu_title} from './franchise/store_panel_string';
 import {ERROR_CODE} from './franchise/store_panel_error_message ';
 import {MESSAGE_CODE} from './franchise/store_panel_success_message';
@@ -16,6 +15,7 @@ import {validation_message} from './franchise/store_panel_validation_message';
 import {GET_METHOD , POST_METHOD} from './franchise/store_http_methods';
 //import {StoreCart} from './store/cart';
 import {Response } from '@angular/http';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'helper'

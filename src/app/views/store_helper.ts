@@ -10,7 +10,6 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {IMyOptions, IMyDateModel} from 'mydatepicker';
 import {Router_id} from './routing_hidden_id';
 import {ERROR_CODE_CONSTANT , IMPORT_STORE_DATA, MONTH, WEEK, DAY, PROMO_FOR_ID, PROMO_FOR_STRING, PROMO_FOR, PROMO_RECURSION_ID, PROMO_RECURSION_STRING, PROMO_RECURSION, ORDER_STATE , TIMEOUT , ORDER_STATUS_ID, ORDER_CANCELLATION_CHARGE_TYPE, ADMIN_DATA_ID, IMAGE_RATIO} from '../constant';
-import {TranslateService} from 'ng2-translate';
 import {title, button, heading_title , status , lable_title, message , menu_title} from './store/store_panel_string';
 import {ERROR_CODE} from './store/store_panel_error_message ';
 import {MESSAGE_CODE} from './store/store_panel_success_message';
@@ -18,9 +17,11 @@ import {validation_message} from './store/store_panel_validation_message';
 import {GET_METHOD , POST_METHOD} from './store/store_http_methods';
 import {StoreCart} from './store/cart';
 import {Response } from '@angular/http';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-    selector: 'helper'
+    selector: 'helper',
+    template:``
 })
 
 export class Helper {
@@ -524,15 +525,15 @@ export class Helper {
         }
 
     downloadFile(data: Response) {
-        var blob = new Blob([data], {type: 'text/csv'});
-        var url = window.URL.createObjectURL(blob);
-        var element = document.createElement('a');
-        element.setAttribute('href', url);
-        element.setAttribute('download', url+'.csv');
-        element.style.display = 'none';
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
+        // var blob = new Blob([data], {type: 'text/csv'});
+        // var url = window.URL.createObjectURL(blob);
+        // var element = document.createElement('a');
+        // element.setAttribute('href', url);
+        // element.setAttribute('download', url+'.csv');
+        // element.style.display = 'none';
+        // document.body.appendChild(element);
+        // element.click();
+        // document.body.removeChild(element);
     }
 
 

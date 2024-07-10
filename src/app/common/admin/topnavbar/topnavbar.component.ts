@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {smoothlyMenu} from '../../../app.helpers';
 declare var jQuery: any;
-import {TranslateService} from 'ng2-translate';
 
 import {Helper} from "../../../views/helper";
 import {Http, Response} from '@angular/http';

@@ -10,7 +10,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { CustomFormsModule } from "ng2-validation";
 import { FooterModule } from "../../../common/franchise/footer/footer.module";
 import { NavigationModule } from "../../../common/franchise/navigation/navigation.module";
-import { ChartsModule } from "ng2-charts";
+import { NgChartsModule } from "ng2-charts";
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { ChartsModule } from "ng2-charts";
     FormsModule,
     FooterModule,
     NavigationModule,
-    ChartsModule,
+    NgChartsModule,
     CustomFormsModule,
     UiSwitchModule,
     Ng2Bs3ModalModule,

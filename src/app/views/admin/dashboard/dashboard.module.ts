@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { DashboardComponent } from "./dashboard.component";
-import { ChartsModule } from "ng2-charts";
+import { NgChartsModule } from "ng2-charts";
 import { FormsModule } from "@angular/forms";
 import { FooterModule } from "../../../common/admin/footer/footer.module";
 import { MyDatePickerModule } from "mydatepicker";
@@ -10,7 +10,7 @@ import { TranslateModule } from "@ngx-translate/core";
 @NgModule({
   imports: [
     CommonModule,
-    ChartsModule,
+    NgChartsModule,
     FormsModule,
     FooterModule,
     MyDatePickerModule,

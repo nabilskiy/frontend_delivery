@@ -10,13 +10,13 @@ import {Router_id} from "./routing_hidden_id";
 
 
 import {ERROR_CODE_CONSTANT,ADMIN_DATA_ID, ORDER_STATE, WEEK, MONTH, DAY ,DATE_FORMAT, TIMEOUT, ADMIN_PROMO_FOR_ID, PROMO_RECURSION_ID, PROMO_RECURSION_STRING, PROMO_RECURSION ,WALLET_REQUEST_STATUS, ORDER_STATUS_ID,ADMIN_PROFIT_ON_DELIVERYS,ADMIN_PROFIT_ON_ORDERS,ADMIN_IMAGE_TYPES,ADMIN_PROMO_FOR_DELIVERY_SERVICE,ADMIN_PROMO_FOR,ADMIN_IMAGE_RATIO,ADMIN_URL} from "../constant";
-import {TranslateService} from 'ng2-translate';
 
 
 import {title, button,heading_title , status ,wallet_request_status, message ,tooltip_title,sub_menu_title, menu_title,lable_title,setting_tab_title} from './admin/admin_panel_string';
 import {ERROR_CODE} from './admin/admin_panel_error_message';
 import {MESSAGE_CODE} from './admin/admin_panel_success_message';
 import {validation_message} from './admin/admin_panel_validation_message';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'helper'

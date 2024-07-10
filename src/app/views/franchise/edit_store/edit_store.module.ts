@@ -9,14 +9,14 @@ import { TranslateModule } from "@ngx-translate/core";
 
 import { CustomFormsModule } from "ng2-validation";
 import { FooterModule } from "../../../common/admin/footer/footer.module";
-import { ChartsModule } from "ng2-charts";
+import { NgChartsModule } from "ng2-charts";
 @NgModule({
   imports: [
     CommonModule,
     BrowserModule,
     FormsModule,
     FooterModule,
-    ChartsModule,
+    NgChartsModule,
     CustomFormsModule,
     UiSwitchModule,
     Ng2Bs3ModalModule,

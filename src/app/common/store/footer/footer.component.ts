@@ -1,7 +1,7 @@
 import { Component ,Input } from '@angular/core';
 
 @Component({
-    selector: 'footer',
+    selector: 'my-footer',
     templateUrl: 'footer.template.html'
 })
 export class FooterComponent { 
